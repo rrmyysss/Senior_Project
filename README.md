@@ -1,5 +1,6 @@
 # Senior_Project
 EmoTune: Emotion-Based Music Recommendation via Synthetic Vision
+
 EmoTune is an innovative mobile application that bridges the gap between Computer Vision and personalized music therapy. The system analyzes a user's current emotional state using a model trained on entirely synthetic, prompt-generated imagery and provides curated YouTube music playlists to regulate or enhance the user's mood.
 
 🚀 Key Features
@@ -14,13 +15,17 @@ YouTube Integration: Leverages the YouTube Data API to fetch and play music dire
 Transfer Learning Architecture: Utilizes state-of-the-art pre-trained models fine-tuned on our custom synthetic dataset for high accuracy.
 
 🧠 Model & Dataset
-The Dataset
+
 The project explores a unique research question: Can models trained on synthetic humans accurately predict real or AI-generated emotional states? The dataset consists of thousands of images generated via prompt engineering, categorized into:
 
 Fearful & Surprised 
+
 Neutral 
+
 Angry 
+
 Happy 
+
 Sad 
 
 Training Logic
