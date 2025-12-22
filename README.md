@@ -17,15 +17,11 @@ Transfer Learning Architecture: Utilizes state-of-the-art pre-trained models fin
 The Dataset
 The project explores a unique research question: Can models trained on synthetic humans accurately predict real or AI-generated emotional states? The dataset consists of thousands of images generated via prompt engineering, categorized into:
 
-Fearful & Surprised (korkmus_ve_sasirmis)
-
-Neutral (nötr)
-
-Angry (kızgın)
-
-Happy (mutlu)
-
-Sad (üzgün)
+Fearful & Surprised 
+Neutral 
+Angry 
+Happy 
+Sad 
 
 Training Logic
 We employed Transfer Learning to maximize feature extraction efficiency. By freezing the early layers of a robust backbone (e.g., MobileNetV2 or ResNet), the model focuses on the nuances of facial expressions within the synthetic domain.
