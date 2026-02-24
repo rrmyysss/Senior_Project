@@ -1,4 +1,4 @@
-# EmoTune: Emotion-Based Music Recommendation via Synthetic Vision
+# MoodTune: Emotion-Based Music Recommendation via Synthetic Vision
 
 EmoTune is an innovative mobile application that bridges the gap between Computer Vision and personalized music therapy. The system analyzes a user's current emotional state using a model trained on entirely synthetic, prompt-generated imagery and provides curated YouTube music playlists to regulate or enhance the user's mood.
 
