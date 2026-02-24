@@ -23,6 +23,7 @@ import 'domain/user/repositories/i_auth_repository.dart' as _i369;
 import 'infrastructure/auth/repositories/auth_repository_impl.dart' as _i725;
 import 'infrastructure/core/injectable_module.dart' as _i1026;
 import 'infrastructure/mood/repositories/mood_repository_impl.dart' as _i823;
+import 'infrastructure/music/repositories/mock_music_repository.dart' as _i385;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -38,6 +39,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i974.FirebaseFirestore>(
       () => firebaseInjectableModule.firestore,
     );
+    gh.lazySingleton<_i67.IMusicRepository>(() => _i385.MockMusicRepository());
     gh.lazySingleton<_i369.IAuthRepository>(
       () => _i725.AuthRepositoryImpl(
         gh<_i59.FirebaseAuth>(),
