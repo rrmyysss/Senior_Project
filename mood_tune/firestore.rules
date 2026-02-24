@@ -1,0 +1,48 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── USERS ─────────────────────────────────────────
+    match /users/{uid} {
+      allow read, write: if request.auth != null
+                         && request.auth.uid == uid;
+    }
+
+    // ── MOOD ENTRIES ──────────────────────────────────
+    match /mood_entries/{entryId} {
+      allow read, delete: if request.auth != null
+                          && resource.data.userId == request.auth.uid;
+
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid
+                    && request.resource.data.keys().hasOnly([
+                         'id','userId','moodTag','method','confidence',
+                         'note','timestamp','tracksPlayed','sessionDuration'
+                       ]);
+    }
+
+    // ── TRACKS (Küratörlü müzik havuzu) ──────────────
+    match /tracks/{trackId} {
+      allow read: if true;
+      allow write: if false; // Sadece Admin SDK
+    }
+
+    // ── YOUTUBE CACHE ─────────────────────────────────
+    match /youtube_cache/{moodTag} {
+      allow read: if request.auth != null;
+      allow write: if false; // Sadece Cloud Function
+    }
+
+    // ── USER PREFERENCES ─────────────────────────────
+    match /user_preferences/{uid} {
+      allow read, write: if request.auth != null
+                         && request.auth.uid == uid;
+    }
+
+    // ── AI MODEL CONFIG ───────────────────────────────
+    match /ai_model_config/{modelId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Sadece Admin SDK
+    }
+  }
+}

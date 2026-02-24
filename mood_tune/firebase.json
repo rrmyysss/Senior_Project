@@ -1,1 +1,31 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"moodtune-app-99321","appId":"1:603315148809:android:3549131e9ef3d1c67340d8","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"moodtune-app-99321","configurations":{"android":"1:603315148809:android:3549131e9ef3d1c67340d8","ios":"1:603315148809:ios:917348bb0d3ac3ca7340d8","macos":"1:603315148809:ios:917348bb0d3ac3ca7340d8","web":"1:603315148809:web:6ebfe61373d5fa227340d8","windows":"1:603315148809:web:652bf0832940117b7340d8"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "moodtune-app-99321",
+          "appId": "1:603315148809:android:3549131e9ef3d1c67340d8",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "moodtune-app-99321",
+          "configurations": {
+            "android": "1:603315148809:android:3549131e9ef3d1c67340d8",
+            "ios": "1:603315148809:ios:917348bb0d3ac3ca7340d8",
+            "macos": "1:603315148809:ios:917348bb0d3ac3ca7340d8",
+            "web": "1:603315148809:web:6ebfe61373d5fa227340d8",
+            "windows": "1:603315148809:web:652bf0832940117b7340d8"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "nam5",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
