@@ -4,7 +4,7 @@ part 'youtube_search_result.freezed.dart';
 part 'youtube_search_result.g.dart';
 
 @freezed
-class YouTubeSearchResult with _$YouTubeSearchResult {
+abstract class YouTubeSearchResult with _$YouTubeSearchResult {
   const factory YouTubeSearchResult({
     required String videoId,
     required String title,

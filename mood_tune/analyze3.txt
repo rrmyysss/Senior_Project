@@ -1,0 +1,7 @@
+﻿Analyzing mood_tune...                                          
+
+   info - Use the null-aware marker '?' rather than a null check via an 'if' - lib\presentation\core\atoms\gradient_scaffold.dart:41:13 - use_null_aware_elements
+  error - Invalid constant value - lib\presentation\core\organisms\custom_bottom_nav_bar.dart:89:57 - invalid_constant
+warning - Unused import: '../../core/atoms/mood_tag_badge.dart' - lib\presentation\home\pages\home_page.dart:6:8 - unused_import
+  error - Undefined class 'PathMetric' - lib\presentation\playlist\pages\new_playlist_page.dart:200:10 - undefined_class
+

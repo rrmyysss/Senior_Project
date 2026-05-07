@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Playlistlerim</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8c2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#191022",
+                        "mood-lavender": "#E8E4F3",
+                        "mood-blue": "#C8DFF0",
+                        "mood-navy": "#141C2F",
+                        "mood-chip": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gradient-to-br from-mood-lavender to-mood-blue min-h-screen font-display antialiased text-mood-navy selection:bg-primary/20 pb-32">
+<header class="pt-12 px-6 pb-4 flex items-center justify-between sticky top-0 z-10 bg-gradient-to-br from-mood-lavender/90 to-mood-blue/90 backdrop-blur-md">
+<h1 class="text-2xl font-bold tracking-tight text-mood-navy">Playlistlerim</h1>
+<button class="bg-gradient-to-r from-primary/80 to-[#a78bfa] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg shadow-primary/20 hover:scale-105 transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined !text-[18px]">add</span>
+            Yeni
+        </button>
+</header>
+<div class="flex gap-3 px-6 pb-6 overflow-x-auto hide-scrollbar snap-x">
+<button class="snap-start shrink-0 px-5 py-2.5 rounded-full bg-mood-navy text-white text-sm font-medium shadow-md transition-colors">
+            Tümü
+        </button>
+<button class="snap-start shrink-0 px-5 py-2.5 rounded-full bg-white/60 hover:bg-white text-mood-navy text-sm font-medium shadow-sm backdrop-blur-sm transition-all border border-white/50">
+            Benim Oluşturduklarım
+        </button>
+<button class="snap-start shrink-0 px-5 py-2.5 rounded-full bg-white/60 hover:bg-white text-mood-navy text-sm font-medium shadow-sm backdrop-blur-sm transition-all border border-white/50">
+            Kaydettiklerim
+        </button>
+</div>
+<main class="grid grid-cols-2 gap-4 px-6 pb-8">
+<div class="group bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-white/40 hover:shadow-md transition-all duration-300 flex flex-col gap-3 relative">
+<div class="absolute top-4 right-4 z-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-gray-100 shadow-inner w-full relative group-hover:scale-[1.02] transition-transform duration-300">
+<img alt="Soft morning light sunrise gradient" class="w-full h-full object-cover" data-alt="Soft morning light sunrise gradient" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjlU1gBIws92W5yP4EQAuow_Er_4cVTPCNCyO2qr5unxH8AewHCeHDZ3jPU2z7uDwQQxL2H7wbNWqav3HwjHTsbW0AI2I_wT4KxJjapX0_48vwZcEzeEJPpJ-Dmkuq-Fqczz9XXA4qzyJMRcE7QvocIcipZFoqrmLHeYSKIRwmjJHqzu4hTn2XRz8KmBFRJAZCgA_P3iE14-8MhRaEVfO4N8btGbsqKUoIvb3QqfjmKF6wIHYsbGDAA12ZGRUXd5tkW-qwp1-13asH"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-mood-navy text-base leading-tight truncate">Sabah Modu</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-orange-100 text-orange-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        😊 Mutlu
+                    </span>
+<span class="text-xs text-slate-500 font-medium">12 Şarkı</span>
+</div>
+</div>
+</div>
+<div class="group bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-white/40 hover:shadow-md transition-all duration-300 flex flex-col gap-3 relative">
+<div class="absolute top-4 right-4 z-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-gray-100 shadow-inner w-full relative group-hover:scale-[1.02] transition-transform duration-300">
+<img alt="Energetic gym workout abstract" class="w-full h-full object-cover" data-alt="Energetic gym workout abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwo2AZqlV-gzoD-Dk_zQvAn7vgxsRyYDXclmZWmD-PnqBIFRVtIw17DPd74K11U7bke3Nh3lTelTujG5LbwVO68R3NO0FZ_a4qyeZGQxWjFBsCBwtVgT6Jw2zzeiS2xOgM2-TKKwVjBafTlHaLYqAXuiifNVLWxmiOwKdyZaoclEh4S-xQ3SLIiTYB4WV7nspw4WYKp_anTIWVMdQIlcHK1VFV-OkSbjfxcPnyreebdctV7nioQtyg8yvF_X9dUHihVJSG-f2z9xgi"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-mood-navy text-base leading-tight truncate">Spor</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        🔥 Enerjik
+                    </span>
+<span class="text-xs text-slate-500 font-medium">45 Şarkı</span>
+</div>
+</div>
+</div>
+<div class="group bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-white/40 hover:shadow-md transition-all duration-300 flex flex-col gap-3 relative">
+<div class="absolute top-4 right-4 z-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-gray-100 shadow-inner w-full relative group-hover:scale-[1.02] transition-transform duration-300">
+<img alt="Calm blue water ripples" class="w-full h-full object-cover" data-alt="Calm blue water ripples" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZWMphgp87JUItAPYWQesFsDTRc0GATGx_SgtHu67gcilVKp0REyfHeDdJQ5TidMmh8KKuA90RAAhn1YyCHaMRigIfAp2BOYTNp_8gGeePXdW9eXXa-_3kFji0TVB5wqoAlr24xEkO6czvs_poYpLy_Y5v0c0t9E5cMfhvdmeYriEBXaepjx-HzKlyEjSBNassP7UQSNHb7L3w6RlUq6ZbIRcWwTZwKsZuhCCSZnF2tUK_Bzn1MirTqVqxEj9QyODdn1Lttrg7lJs1"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-mood-navy text-base leading-tight truncate">Rahatlama</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        🌊 Sakin
+                    </span>
+<span class="text-xs text-slate-500 font-medium">28 Şarkı</span>
+</div>
+</div>
+</div>
+<div class="group bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-white/40 hover:shadow-md transition-all duration-300 flex flex-col gap-3 relative">
+<div class="absolute top-4 right-4 z-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-gray-100 shadow-inner w-full relative group-hover:scale-[1.02] transition-transform duration-300">
+<img alt="Road trip highway view" class="w-full h-full object-cover" data-alt="Road trip highway view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmf1cLTYMYfVQCSKUr1_GC5ReXRtSDf__Q_EmTDIfMI33bHeKmaN-ycTHqazWjoIXJxhBtujJxG5q67deSA3TYKFOas73o8jDKmnFxYvOZSoiJmS29asAEvNvvFylgTfAVGyuCUe1eGTUzr_hk_ESRYKlZaJhBUW2rzL0Fg_t4ZTYLb_T5p3lUXjIXTRPN_5LtRnwO9AWPEAIcAYvBLiJ884OMojlN3X9nAbAzmd8X2oxRe71vHtqlfrJrnXhgfY-uQ68zF0UV5PPn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-mood-navy text-base leading-tight truncate">Yolculuk</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        🚗 Keyifli
+                    </span>
+<span class="text-xs text-slate-500 font-medium">84 Şarkı</span>
+</div>
+</div>
+</div>
+<div class="group bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-white/40 hover:shadow-md transition-all duration-300 flex flex-col gap-3 relative">
+<div class="absolute top-4 right-4 z-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-gray-100 shadow-inner w-full relative group-hover:scale-[1.02] transition-transform duration-300">
+<img alt="Focus study abstract shapes" class="w-full h-full object-cover" data-alt="Focus study abstract shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJMxIspd_QlyTKAh53lLl3bVnpk3Cjtpn37LNH2OUy2Pzwm-H7g0YJT7NmG1yPdNbe-1yyW9s7TM51-WL5YhMYGC8qL4OkYfVpbQ2zztSwxe3c6pyEVKgs5_uz13z0ALZG5PO-tmHl3WJQnhJ6guZw2ebRNsHlxvt0bh8vsqCWapUWNlfuYe2aKGI5IV3NDyLlKD__kVCf6n9hB1D4jqT-RQIUCWGA2DAmqpo6dUY9DRUfcIqVzSOxSwbWL9qf1TEyKuU4NAmJmprz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-mood-navy text-base leading-tight truncate">Odaklan</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        🧠 Ciddi
+                    </span>
+<span class="text-xs text-slate-500 font-medium">50 Şarkı</span>
+</div>
+</div>
+</div>
+<div class="group bg-white/80 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-white/40 hover:shadow-md transition-all duration-300 flex flex-col gap-3 relative">
+<div class="absolute top-4 right-4 z-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-md hover:bg-black/30 transition-colors">
+<span class="material-symbols-outlined !text-[20px]">more_horiz</span>
+</button>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-gray-100 shadow-inner w-full relative group-hover:scale-[1.02] transition-transform duration-300">
+<img alt="Party neon lights abstract" class="w-full h-full object-cover" data-alt="Party neon lights abstract" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKBz8K5_DqHw1yjy1Lr-iY1Oi_-2RQXuKB7jF5ZK-AW13B3HWX4_NqAo9s1Vb83GAxpZBIU62HazxPiuygoWCkaxzyGe7BJ48EZM05VxpCNBqC2a6WbTe3aF2zTjhuDvB3sKue9DEAOZYpgybFrhxCE8waEWVp5RA9xTQfsdOUVb5j4UHx0XAInOMyC1eGbe19Xt5SdcVQRzssJwM_4DToBaSaI1X6IthI0KnaluMuFoUbesvnAjq63xFAIzyd9s7hXnSDqhrKHOXq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-mood-navy text-base leading-tight truncate">Parti</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                        🎉 Çılgın
+                    </span>
+<span class="text-xs text-slate-500 font-medium">102 Şarkı</span>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 w-full z-50 px-4 pb-4 pt-1">
+<div class="bg-white rounded-[2rem] shadow-xl shadow-blue-900/10 px-6 py-3 flex items-center justify-between mx-auto max-w-[400px]">
+<a class="flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px]">home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px]">search</span>
+</a>
+<a class="flex items-center justify-center gap-2 bg-slate-100 rounded-full py-2.5 px-5 shadow-sm transition-all transform hover:scale-105" href="#">
+<span class="material-symbols-outlined text-mood-navy text-[24px]">library_music</span>
+<span class="text-sm font-bold text-mood-navy">Playlist</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition-colors" href="#">
+<span class="material-symbols-outlined text-[28px]">person</span>
+</a>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,557 @@
+🎵 MoodTune
+MVP Master Plan — Product Requirements Document
+Flutter  ·  Firebase  ·  YouTube Data API v3  ·  TFLite Kamera AI
+v2.0
+📦 Tablo 1: Entities
+Bu tablo, Dart sınıflarını (Models) oluşturmak için temel alınır. YouTubeSearchResult Firestore'a kaydedilmez — arama sonucu bu modele map'lenir, kullanıcı seçerse MusicTrack'e dönüştürülüp yazılır.
+Entity Adı
+Field
+Tip
+Zorunlu
+Açıklama
+User
+uid
+String
+✅
+Firebase Auth UID
+email
+String
+✅
+E-posta adresi
+displayName
+String
+✅
+Kullanıcı adı
+photoUrl
+String
+❌
+Profil fotoğrafı URL'i
+lastMood
+String
+❌
+En son tespit edilen duygu
+preferredLanguage
+String
+❌
+tr / en — lokalizasyon için
+createdAt
+DateTime
+✅
+Kayıt tarihi
+onboardingCompleted
+Bool
+✅
+İlk açılış akışı tamamlandı mı?
+MoodEntry
+id
+String
+✅
+Firestore Doc ID
+userId
+String
+✅
+Kullanıcı UID
+moodTag
+String
+✅
+Happy / Sad / Angry / Fear / Surprise / Neutral
+method
+Enum
+✅
+camera / manual
+confidence
+Double
+❌
+AI güven skoru (0.0–1.0) — kamera analizi için
+note
+String
+❌
+Kullanıcı notu (maks 250 karakter)
+timestamp
+DateTime
+✅
+Giriş saati
+tracksPlayed
+List<String>
+❌
+Oturumda çalınan YouTube Video ID'leri
+sessionDuration
+Int
+❌
+Dakika cinsinden dinleme süresi
+MusicTrack
+id
+String
+✅
+Firestore Doc ID
+title
+String
+✅
+Şarkı / video adı
+artist
+String
+✅
+Sanatçı / kanal adı
+moodTag
+String
+✅
+İlişkili duygu etiketi
+youtubeVideoId
+String
+✅
+YouTube video ID (ör: dQw4w9WgXcQ)
+youtubeUrl
+String
+✅
+https://youtu.be/{videoId}
+thumbnailUrl
+String
+✅
+YouTube thumbnail URL
+channelName
+String
+✅
+YouTube kanal adı
+source
+Enum
+✅
+manual / youtube_api — verinin kaynağı
+genre
+String
+❌
+Müzik türü (pop, chill, rock…)
+durationMs
+Int
+❌
+Video süresi (milisaniye)
+previewUrl
+String
+❌
+30 saniyelik önizleme URL'i (varsa)
+popularity
+Int
+❌
+0–100 YouTube izlenme bazlı skor
+YouTubeSearch Result
+videoId
+String
+✅
+YouTube video ID
+(Geçici Model)
+title
+String
+✅
+Video başlığı
+channelName
+String
+✅
+Kanal adı
+thumbnailUrl
+String
+✅
+Kapak görseli URL'i
+duration
+String
+✅
+ISO 8601 (PT3M45S) — görüntüleme için
+viewCount
+Int
+❌
+İzlenme sayısı
+AIModelConfig
+id
+String
+✅
+Model versiyon ID
+tflitePath
+String
+✅
+Model dosya yolu (assets içinde)
+labels
+Array
+✅
+Sınıflandırma etiketleri
+version
+String
+✅
+Model versiyonu (ör. v1.2.0)
+minConfidenceThreshold
+Double
+✅
+Minimum güven eşiği (ör. 0.60)
+isActive
+Bool
+✅
+Aktif model mi? (A/B test desteği)
+User Preferences
+userId
+String
+✅
+Kullanıcı UID (doc ID olarak kullanılır)
+favoriteGenres
+List<String>
+❌
+Sevilen müzik türleri
+notificationsEnabled
+Bool
+✅
+Bildirim açık mı?
+dailyMoodReminderTime
+String
+❌
+Günlük hatırlatıcı saati (HH:mm)
+explicitContentAllowed
+Bool
+✅
+Açık içerik tercihi
+🔥 Tablo 2: Firestore Collections & Operations
+Flutter'daki Service sınıflarını ve Firebase operasyonlarını tanımlar. youtube_cache koleksiyonu API quota'yı korumak için 1 saatlik TTL ile çalışır.
+Collection
+Operation
+Request
+Response
+Açıklama
+users
+Create
+uid, email, name
+User doc
+Yeni profil oluştur
+users
+Update
+uid, lastMood
+Success
+Son duygu durumunu güncelle
+users
+Get
+uid
+User doc
+Profil bilgilerini çek
+mood_entries
+Add
+userId, moodTag, method, confidence?
+Doc ID
+Yeni duygu kaydı oluştur
+mood_entries
+Query
+userId, limit: 10
+MoodEntry[]
+Kullanıcının son 10 modu
+mood_entries
+Query
+userId, dateRange
+MoodEntry[]
+Tarihe göre filtreli geçmiş
+mood_entries
+Delete
+entryId, userId
+Success
+Giriş silme (GDPR uyumu)
+tracks
+Query
+moodTag
+Track[]
+Moda göre şarkıları getir (Keşfet)
+tracks
+Query
+moodTag, genre, limit
+Track[]
+Filtreli şarkı listesi
+tracks
+Get
+trackId
+Track
+Tekil şarkı detayı
+tracks
+Add
+MusicTrack (YouTube kaynaklı)
+Doc ID
+YouTube'dan bulunan şarkıyı kaydet
+youtube_cache
+Set
+moodTag, results[], cachedAt
+Success
+API quota korumak için 1 saatlik cache
+youtube_cache
+Get
+moodTag
+CacheDoc | null
+Cache geçerliyse API'ye gitme
+user_preferences
+Set
+userId, prefs
+Success
+Tercihleri kaydet/güncelle
+user_preferences
+Get
+userId
+Preferences
+Kullanıcı tercihlerini çek
+ai_model_config
+Get
+modelId
+AIModelConfig
+Aktif model konfigürasyonu çek
+🎬 Tablo 3: YouTube Data API v3 Entegrasyonu
+3a — API Endpoint'leri
+İşlem
+Endpoint
+Parametreler
+Response
+Açıklama
+Mood'a göre arama
+GET /search
+q={moodQuery}, type=video, videoCategoryId=10, maxResults=10
+YouTubeSearchResult[]
+Keşfet ekranı için dinamik arama
+Video detayı
+GET /videos
+id={videoId}, part=snippet, contentDetails, statistics
+Tekil video metadata
+Süre ve izlenme bilgisi için
+Playlist çekme
+GET /playlistItems
+playlistId={id}, maxResults=20
+Video listesi
+Küratörlü mood playlist'leri (opsiyonel)
+3b — Mood → YouTube Query Mapping
+Keşfet ekranının öneri mantığını belirler. moodTag → arama sorgusu → YouTubeService.searchByMood() akışı.
+Mood Tag
+BPM
+Genre
+Vibe
+YouTube Arama Sorgusu
+😊 Happy
+120–160
+Pop, Dance, Indie
+Enerjik, Coşkulu
+"happy mood music playlist 2024"
+😢 Sad
+60–90
+Acoustic, R&B
+Melankolik, Sakin
+"sad emotional music playlist"
+😡 Angry
+140–180
+Rock, Hip-Hop
+Agresif, Yoğun
+"aggressive workout music rock"
+😨 Fear
+80–110
+Ambient, Chill
+Sakinleştirici
+"calming anxiety relief music"
+😲 Surprise
+110–140
+Funk, Jazz
+Dinamik
+"upbeat unexpected feel good music"
+😐 Neutral
+90–120
+Lo-fi, Jazz
+Dengeli, Odak
+"lofi chill focus music"
+✅ Tablo 4: Validation Rules
+Input doğrulamaları için kullanılacak kurallar. Tüm form field'larında ve Firestore'a yazılmadan önce uygulanır.
+Field
+Kural
+Hata Mesajı
+email
+Regex (email format)
+Geçerli bir e-posta adresi girin
+password
+Min 8 karakter, 1 büyük harf, 1 rakam
+Şifre en az 8 karakter olmalı
+displayName
+Min 2, Max 50 karakter, özel karakter yok
+İsim 2-50 karakter arası olmalı
+moodTag
+Enum: Happy, Sad, Angry, Fear, Surprise, Neutral
+Geçersiz duygu etiketi
+confidence
+Range: 0.0 – 1.0
+Güven skoru 0-1 arası olmalı
+note
+Max 250 karakter
+Not çok uzun (Maks 250)
+dailyReminderTime
+Regex: ^([01]\d|2[0-3]):([0-5]\d)$
+Geçerli bir saat girin (ör: 08:30)
+youtubeVideoId
+11 karakter alfanumerik string
+Geçersiz YouTube video ID
+sessionDuration
+Min 0, Max 1440 (dakika)
+Oturum süresi geçersiz
+source
+Enum: "manual" / "youtube_api"
+Geçersiz kaynak tipi
+🔒 Tablo 5: Firestore Security Rules
+Veri güvenliği ve erişim yetkileri. Admin SDK ve Cloud Functions hariç tüm yazma operasyonları kullanıcı kimlik doğrulamasına tabidir.
+Collection
+Document
+Security Rule
+Açıklama
+users
+{uid}
+request.auth.uid == uid
+Sadece hesap sahibi okur/yazar
+mood_entries
+{id}
+request.auth.uid == resource.data.userId
+Sadece sahibi erişir
+mood_entries
+{id}
+request.resource.data.keys().hasOnly([...allowedFields])
+Alan kontrolü — fazla veri yazılamaz
+tracks
+{trackId}
+allow read: if true;
+Herkes okuyabilir
+tracks
+{trackId}
+allow write: if false;
+Sadece Admin SDK yazabilir
+youtube_cache
+{moodTag}
+allow read: if request.auth != null;
+Giriş yapmış kullanıcılar okur
+youtube_cache
+{moodTag}
+allow write: if false;
+Sadece Cloud Function yazar
+user_preferences
+{uid}
+request.auth.uid == uid
+Sadece hesap sahibi
+ai_model_config
+{modelId}
+allow read: if request.auth != null;
+Giriş yapmış kullanıcılar okur
+ai_model_config
+{modelId}
+allow write: if false;
+Sadece Admin SDK yazabilir
+🏗️ Tablo 6: Service Layer Mimarisi
+Flutter'daki servis sınıflarının sorumluluklarını netleştirir. Her servis tek bir sorumluluk alır (SRP).
+Service Sınıfı
+Method
+Açıklama
+AuthService
+signIn / signUp / signOut
+Giriş, kayıt, çıkış, oturum yönetimi
+UserService
+getUser / updateLastMood / createProfile
+Profil CRUD, lastMood güncelleme
+MoodService
+addEntry / getHistory / deleteEntry
+Duygu kaydı ekleme, geçmiş, silme
+YouTubeService (YENİ)
+searchByMood(moodTag)
+Mood'a göre YouTube Data API v3 araması
+getVideoDetails(videoId)
+Süre ve izlenme bilgisini çeker
+convertToTrack(result)
+YouTubeSearchResult → MusicTrack dönüşümü
+MusicService (güncellendi)
+getTracksByMood(moodTag)
+Önce Firestore'a bak, boşsa YouTube API'ye git
+getFilteredTracks(moodTag, genre)
+Türe göre filtreli şarkı listesi
+CacheService (YENİ)
+getCachedResults(moodTag)
+youtube_cache'den 1 saatlik sonuç çek
+setCachedResults(moodTag, results)
+Arama sonuçlarını cache'e yaz
+CameraAIService
+loadModel() / analyzeFrame(frame)
+TFLite model yükleme ve kare analizi
+PreferencesService
+getPrefs / savePrefs
+Kullanıcı ayarları okuma/yazma
+AnalyticsService (YENİ)
+getWeeklyMoodSummary(userId)
+Haftalık duygu istatistikleri raporu
+📦 Tablo 7: Flutter Paket Listesi
+Tüm third-party bağımlılıklar. API key güvenliği için flutter_dotenv zorunludur — key'i asla .dart dosyasına ya da Git'e ekleme.
+Paket
+Versiyon
+Kullanım Amacı
+youtube_player_flutter
+^8.1.2
+WebView tabanlı gömülü YouTube oynatma
+http
+^1.2.0
+YouTube Data API v3 HTTP istekleri
+cached_network_image
+^3.3.1
+YouTube thumbnail cache'leme
+flutter_dotenv
+^5.1.0
+API key'i .env'den güvenli okuma
+firebase_core
+^2.x
+Firebase başlatma
+firebase_auth
+^4.x
+Kullanıcı kimlik doğrulama
+cloud_firestore
+^4.x
+Firestore veritabanı işlemleri
+tflite_flutter
+^0.10.x
+TFLite model çalıştırma (kamera AI)
+camera
+^0.10.x
+Kamera akışı ve fotoğraf çekme
+url_launcher
+^6.x
+YouTube app fallback yönlendirme
+connectivity_plus
+^5.x
+İnternet bağlantısı kontrolü
+hive_flutter
+^1.x
+Offline şarkı cache (local storage)
+⚠️  Production için: YouTube API key'i Firebase Remote Config veya Cloud Functions proxy üzerinden sun — key hiçbir zaman client'a inmesin.
+⚠️ Tablo 8: Edge Cases & Fallback Senaryoları
+Uygulamanın kararlı çalışması için kritik kenar durumlar. Her senaryo için fallback davranışı MVP öncesinde implemente edilmelidir.
+Senaryo
+Tetikleyici
+Fallback Davranışı
+AI güven skoru < 0.60
+Kamera analizi belirsiz sonuç
+Kullanıcıya manuel duygu seçim ekranı göster
+Kamera izni reddedildi
+Permission.camera.isDenied
+İzin dialog'u + sistem ayarlarına yönlendir
+YouTube API quota aşıldı
+403 quotaExceeded (10.000 unit/gün)
+youtube_cache'den eski sonuçları göster
+Video bölgede kısıtlı
+WebView oynatma hatası
+Şu video bölgede mevcut değil + sonraki şarkıya geç
+WebView yüklenemedi
+Bağlantı yok / zaman aşımı
+url_launcher ile YouTube app'e yönlendir
+YouTube arama sonucu boş
+API items: [] döndü
+Hardcoded fallback playlist ID'leri kullan
+Cache süresi doldu (>1 saat)
+cachedAt timestamp kontrolü
+Background'da sessizce API'yi yeniden çağır
+İnternet bağlantısı yok
+connectivity: none
+Hive'dan cache'li son 5 şarkıyı göster
+Tracks koleksiyonu boş
+moodTag eşleşmesi yok
+Neutral mood şarkılarını fallback olarak göster
+Onboarding tamamlanmadı
+onboardingCompleted == false
+Her açılışta onboarding ekranına yönlendir
+Firebase kota aşıldı
+Firestore quota error
+Kullanıcıya 'daha sonra tekrar dene' toast göster
+🔄 Genel Uygulama Akışı
+1  Kullanıcı giriş yapar (Firebase Auth)   →   2  Kamera veya manuel ile duygu tespit edilir   →   3  MoodService.addEntry() Firestore'a yazar
+4  MusicService.getTracksByMood() çağrılır   →   5  Önce Firestore tracks, boşsa CacheService kontrol   →   6  Cache yoksa YouTubeService.searchByMood()
+7  Sonuçlar youtube_cache'e yazılır   →   8  youtube_player_flutter ile WebView'da oynatılır   →   9  tracksPlayed & sessionDuration güncellenir

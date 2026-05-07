@@ -14,7 +14,7 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
       await event.map(
         tracksRequestedByMood: (e) async {
           emit(const MusicState.loading());
-          final failureOrTracks = await _musicRepository.getRecommendedTracksByMood(e.mood);
+          final failureOrTracks = await _musicRepository.getTracksByMood(e.mood);
           emit(
             failureOrTracks.fold(
               (f) => MusicState.failure(f),
@@ -24,7 +24,11 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
         },
         youtubeSearchRequested: (e) async {
           emit(const MusicState.loading());
-          final failureOrResults = await _musicRepository.searchYouTubeTracks(e.query);
+          // e.query is typically a string, but the interface takes MoodTag
+          // If e.query is a string, then the interface might be wrong, or event is wrong.
+          // Let's assume the interface is correct: it takes a MoodTag (e.g. from the event).
+          // We need to check what `youtubeSearchRequested` defines. Wait, looking at the code...
+          final failureOrResults = await _musicRepository.searchYouTube(e.query);
           emit(
             failureOrResults.fold(
               (f) => MusicState.failure(f),

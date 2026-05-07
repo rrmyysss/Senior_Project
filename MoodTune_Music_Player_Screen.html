@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Music Player</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#5b5bce", // Adjusted to a softer purple/blue to match the mood
+                        "primary-dark": "#4a4aab",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101022",
+                        "mood-lavender": "#E8E4F3",
+                        "mood-blue": "#C8DFF0",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "2xl": "3rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(91, 91, 206, 0.15)',
+                        'neumorphic': '20px 20px 60px #bebebe, -20px -20px 60px #ffffff',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+        }
+
+        input[type=range]:focus {
+            outline: none; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display antialiased text-slate-900 bg-gradient-to-br from-mood-lavender to-mood-blue min-h-screen flex items-center justify-center p-4">
+<!-- Mobile Container -->
+<div class="relative flex h-full max-h-[900px] w-full max-w-[400px] flex-col overflow-hidden rounded-[2.5rem] bg-white/30 shadow-2xl backdrop-blur-xl ring-1 ring-white/50">
+<!-- Header -->
+<div class="flex items-center justify-between px-6 pt-10 pb-4">
+<button class="flex size-10 items-center justify-center rounded-full bg-white/40 hover:bg-white/60 transition-colors text-slate-700">
+<span class="material-symbols-outlined text-2xl">keyboard_arrow_down</span>
+</button>
+<div class="flex flex-col items-center">
+<h2 class="text-xs font-bold tracking-widest text-slate-500 uppercase">Şu An Çalıyor</h2>
+<span class="text-[10px] font-medium text-slate-400">MoodTune Tavsiyesi</span>
+</div>
+<button class="flex size-10 items-center justify-center rounded-full bg-white/40 hover:bg-white/60 transition-colors text-slate-700">
+<span class="material-symbols-outlined text-2xl">more_horiz</span>
+</button>
+</div>
+<!-- Album Art -->
+<div class="flex flex-1 flex-col items-center justify-center px-8 py-4">
+<div class="relative aspect-square w-full max-w-[280px]">
+<div class="absolute inset-0 rounded-2xl bg-primary/20 blur-2xl transform translate-y-4 scale-90"></div>
+<div class="relative h-full w-full overflow-hidden rounded-[2rem] shadow-soft ring-1 ring-white/20 bg-slate-200" data-alt="Abstract colorful clouds sunset landscape" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBMmcrJ9Q_t87GkwvpQ5c-ojSmw3NubXZmTsJoPv4daBTz1FlGNYdqeg2crbLjS7kJhJ42ZLsZ1iuVdL2eA6TEWj4vUWoV9W8-tpL4U-iDZS7S-awAlGkY1FtKI9q_OlpeLb11rT3K-dGqK6M39BBjlAG1cPWgMQSldBcvX1DJVzIRmhPscrh5coLi5cc3D45TCu_LOg6m8TneJ3CILr1e3UiRw9TOKC--BUJc22Duqv46ey96q6Cyp3ZiiBn_XQFAMUJ9O7EuhLaof'); background-size: cover; background-position: center;">
+</div>
+</div>
+<!-- Track Info -->
+<div class="mt-8 flex w-full flex-col items-center gap-1 text-center">
+<h1 class="text-2xl font-bold tracking-tight text-slate-800 line-clamp-1">Sabah Işığı</h1>
+<p class="text-base font-medium text-slate-500">Barış Manço</p>
+</div>
+<!-- Tags & Actions -->
+<div class="mt-6 flex w-full items-center justify-between px-4">
+<button class="group flex size-10 items-center justify-center rounded-full transition-all hover:bg-white/40 active:scale-95">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-red-400 transition-colors">favorite</span>
+</button>
+<div class="glass-panel flex items-center gap-2 rounded-full px-4 py-1.5 shadow-sm">
+<span class="material-symbols-outlined text-sm text-primary">auto_awesome</span>
+<span class="text-xs font-bold text-slate-600 uppercase tracking-wide">Mutlu</span>
+</div>
+<button class="group flex size-10 items-center justify-center rounded-full transition-all hover:bg-white/40 active:scale-95">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">share</span>
+</button>
+</div>
+</div>
+<!-- Controls Section -->
+<div class="flex flex-col gap-6 px-8 pb-10">
+<!-- Progress Bar -->
+<div class="group flex flex-col gap-2">
+<div class="relative h-1.5 w-full cursor-pointer rounded-full bg-slate-200/50">
+<div class="absolute h-full w-[35%] rounded-full bg-gradient-to-r from-primary/60 to-primary"></div>
+<div class="absolute left-[35%] top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-primary shadow-md transition-transform group-hover:scale-125"></div>
+</div>
+<div class="flex justify-between text-xs font-medium text-slate-400">
+<span>1:17</span>
+<span>3:40</span>
+</div>
+</div>
+<!-- Main Controls -->
+<div class="flex items-center justify-between">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">shuffle</span>
+</button>
+<div class="flex items-center gap-6">
+<button class="text-slate-700 hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined text-4xl font-light">skip_previous</span>
+</button>
+<button class="flex size-16 items-center justify-center rounded-full bg-gradient-to-tr from-primary to-[#7c7cf5] text-white shadow-lg shadow-primary/30 transition-transform active:scale-95 hover:shadow-xl hover:shadow-primary/40">
+<span class="material-symbols-outlined text-4xl font-fill">play_arrow</span>
+</button>
+<button class="text-slate-700 hover:text-primary transition-colors active:scale-95">
+<span class="material-symbols-outlined text-4xl font-light">skip_next</span>
+</button>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-2xl">repeat</span>
+</button>
+</div>
+<!-- Volume Slider (Mini) -->
+<div class="mt-2 flex items-center gap-3 px-2">
+<span class="material-symbols-outlined text-xs text-slate-400">volume_mute</span>
+<div class="relative h-1 w-full rounded-full bg-slate-200/50">
+<div class="absolute h-full w-[70%] rounded-full bg-slate-400/50"></div>
+</div>
+<span class="material-symbols-outlined text-xs text-slate-400">volume_up</span>
+</div>
+<!-- Bottom Sheet Trigger -->
+<div class="mt-4 flex justify-center">
+<button class="flex w-full items-center justify-between rounded-2xl bg-white/50 p-1 pr-4 backdrop-blur-md transition-all hover:bg-white/70 active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<div class="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-xl">queue_music</span>
+</div>
+<div class="flex flex-col items-start">
+<span class="text-sm font-bold text-slate-700">Sıradakiler</span>
+<span class="text-[10px] text-slate-500">Sonraki: Gülpembe</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400">keyboard_arrow_up</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

@@ -11,7 +11,7 @@ import '../../../domain/music/value_objects/track_source.dart';
 @LazySingleton(as: IMusicRepository)
 class MockMusicRepository implements IMusicRepository {
   @override
-  Future<Either<Failure, List<MusicTrack>>> getRecommendedTracksByMood(MoodTag mood) async {
+  Future<Either<Failure, List<MusicTrack>>> getTracksByMood(MoodTag mood) async {
     // Simulate network delay
     await Future.delayed(const Duration(seconds: 1));
 
@@ -25,6 +25,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=y6Sxv-sUYtM',
           moodTag: MoodTag.happy,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'happy_2',
@@ -34,6 +36,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=HgzGwKwLmgM',
           moodTag: MoodTag.happy,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'happy_3',
@@ -43,6 +47,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=iPUmE-tne5U',
           moodTag: MoodTag.happy,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
       ],
       MoodTag.sad: [
@@ -54,6 +60,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=hLQl3WQQoQ0',
           moodTag: MoodTag.sad,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'sad_2',
@@ -63,6 +71,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=k4V3Mo61fJM',
           moodTag: MoodTag.sad,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'sad_3',
@@ -72,6 +82,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=RBumgq5yVrA',
           moodTag: MoodTag.sad,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
       ],
       MoodTag.angry: [
@@ -83,6 +95,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=ZpUYjpKg9KY',
           moodTag: MoodTag.angry,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'angry_2',
@@ -92,6 +106,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=bWXazVhlyxQ',
           moodTag: MoodTag.angry,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'angry_3',
@@ -101,6 +117,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=CSvFpBOe8eY',
           moodTag: MoodTag.angry,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
       ],
       MoodTag.fear: [
@@ -112,6 +130,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=rmHDhVRvCEE',
           moodTag: MoodTag.fear,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'fear_2',
@@ -121,6 +141,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=qEja72CGZnE',
           moodTag: MoodTag.fear,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'fear_3',
@@ -130,6 +152,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=1Lz1x53bLvw',
           moodTag: MoodTag.fear,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
       ],
       MoodTag.surprise: [
@@ -141,6 +165,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=fJ9rUzIMcZQ',
           moodTag: MoodTag.surprise,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'surprise_2',
@@ -150,6 +176,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=sPLEbAVjiLA',
           moodTag: MoodTag.surprise,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'surprise_3',
@@ -159,6 +187,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=usNsCeOV4GM',
           moodTag: MoodTag.surprise,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
       ],
       MoodTag.neutral: [
@@ -170,6 +200,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=UfcAVejslrU',
           moodTag: MoodTag.neutral,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'neutral_2',
@@ -179,6 +211,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=CvFH_6DNRCY',
           moodTag: MoodTag.neutral,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
         const MusicTrack(
           id: 'neutral_3',
@@ -188,6 +222,8 @@ class MockMusicRepository implements IMusicRepository {
           youtubeUrl: 'https://www.youtube.com/watch?v=jfKfPfyJRdk',
           moodTag: MoodTag.neutral,
           source: TrackSource.manual,
+          thumbnailUrl: 'https://via.placeholder.com/150',
+          channelName: 'Unknown Channel',
         ),
       ],
     };
@@ -196,15 +232,16 @@ class MockMusicRepository implements IMusicRepository {
   }
 
   @override
-  Future<Either<Failure, List<YouTubeSearchResult>>> searchYouTubeTracks(String query) async {
+  Future<Either<Failure, List<YouTubeSearchResult>>> searchYouTube(String query) async {
     // For mock, we can just return a generic search result or not implemented since we skip YouTube API.
     await Future.delayed(const Duration(seconds: 1));
     return Right([
       YouTubeSearchResult(
         videoId: 'dQw4w9WgXcQ',
-        title: 'Mock Search Result: $query',
+        title: 'Mock Search Result for $query',
         channelName: 'Mock Channel',
-        thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
+        duration: '3:30',
+        thumbnailUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg',
       ),
     ]);
   }

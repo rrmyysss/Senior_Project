@@ -6,5 +6,5 @@ import '../entities/youtube_search_result.dart';
 
 abstract class IMusicRepository {
   Future<Either<Failure, List<MusicTrack>>> getTracksByMood(MoodTag moodTag);
-  Future<Either<Failure, List<YouTubeSearchResult>>> searchYouTube(MoodTag moodTag);
+  Future<Either<Failure, List<YouTubeSearchResult>>> searchYouTube(String query);
 }

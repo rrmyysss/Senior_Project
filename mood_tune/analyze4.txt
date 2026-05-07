@@ -1,0 +1,6 @@
+﻿Analyzing mood_tune...                                          
+
+warning - Unused import: '../../core/atoms/mood_tag_badge.dart' - lib\presentation\home\pages\home_page.dart:5:8 - unused_import
+  error - The method 'push' isn't defined for the type 'BuildContext' - lib\presentation\home\pages\home_page.dart:62:44 - undefined_method
+  error - The method 'push' isn't defined for the type 'BuildContext' - lib\presentation\home\pages\home_page.dart:75:44 - undefined_method
+

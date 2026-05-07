@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Camera Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8c2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#191022",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    backgroundImage: {
+                        'mood-gradient': 'linear-gradient(180deg, #E6E6FA 0%, #E0F7FA 100%)', // Lavender to Sky Blue
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for elements not covered by Tailwind utilities */
+        .camera-overlay {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .face-guide {
+            border: 2px dashed rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-mood-gradient min-h-screen flex flex-col font-display antialiased overflow-hidden text-slate-900">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between p-6 pt-12 safe-top">
+<button class="flex items-center justify-center w-12 h-12 bg-white/50 backdrop-blur-sm rounded-full shadow-sm hover:bg-white/80 transition-colors text-black z-20">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</button>
+<h1 class="absolute left-0 right-0 text-center text-xl font-bold tracking-tight text-black pointer-events-none">
+            Duygunu Tara
+        </h1>
+<!-- Placeholder for right side balance if needed, or empty div -->
+<div class="w-12"></div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-center px-6 pb-8 w-full max-w-md mx-auto relative">
+<!-- Camera Viewfinder Container -->
+<div class="relative w-full aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl ring-4 ring-white/30 bg-black group">
+<!-- Simulated Camera Feed Image -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="Young woman looking at camera with neutral expression in soft lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBexOa-OKY7YWKURb0OtK6bJ33TwA0juKyTLagVlkQBJyL_CWM6LZTn6TC09sMVWA8xVfW6WETpInE1HNSKd-dYwF3j1hPqVzhK7hgB03xsN7jufYXQJg1BcwBRqAyrGaRTkHQDk_7FBMnJuqLPLoO9JUvFSM5LWUSUKyL0x1UdakTIeaMx_EcnCMvShPom2pgd56W3V3sujqlKkG8RkIQ4HrJA5eONO8noIOUc2l7bl2phjhNiBe9Wo8u99_tfiYQa6PGP7D8DIvm2');">
+</div>
+<!-- Face Guide Overlay -->
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<!-- The "Hole" effect with shadow overlay -->
+<div class="relative w-64 h-80 rounded-[50%] border-2 border-dashed border-white/70 shadow-[0_0_0_999px_rgba(0,0,0,0.4)] flex items-end justify-center pb-6">
+<!-- Scanning Line Animation (Optional visual flair) -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary/50 shadow-[0_0_10px_#8c2bee] animate-[scan_3s_ease-in-out_infinite] w-full opacity-60"></div>
+</div>
+<!-- Label inside viewfinder context -->
+<div class="absolute bottom-12 text-white/90 text-sm font-medium tracking-wide drop-shadow-md bg-black/20 px-4 py-1.5 rounded-full backdrop-blur-sm">
+                    Yüzünü çerçeveye hizala
+                </div>
+</div>
+<!-- Live indicator -->
+<div class="absolute top-6 right-6 flex items-center gap-2 bg-red-500/80 backdrop-blur-md px-3 py-1 rounded-full">
+<div class="w-2 h-2 rounded-full bg-white animate-pulse"></div>
+<span class="text-[10px] font-bold text-white uppercase tracking-wider">CANLI</span>
+</div>
+</div>
+<!-- Hint Text Below Camera -->
+<div class="mt-8 mb-4 flex items-center gap-2 text-slate-800/80 bg-white/30 backdrop-blur-sm px-4 py-2 rounded-xl">
+<span class="material-symbols-outlined text-primary text-xl">light_mode</span>
+<p class="text-sm font-medium text-center">İyi ışıklı bir ortamda olduğundan emin ol</p>
+</div>
+</main>
+<!-- Bottom Action Area -->
+<footer class="p-6 pb-10 w-full max-w-md mx-auto flex flex-col items-center gap-4">
+<button class="group relative flex w-full h-16 items-center justify-center overflow-hidden rounded-full bg-black shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
+<!-- Gradient Background -->
+<div class="absolute inset-0 bg-gradient-to-r from-primary to-[#a855f7] opacity-100 transition-opacity"></div>
+<!-- Button Content -->
+<div class="relative flex items-center gap-3 text-white">
+<span class="text-lg font-bold tracking-wide">Tara</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</div>
+</button>
+</footer>
+<!-- Custom Animation Styles -->
+<style>
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+</body></html>

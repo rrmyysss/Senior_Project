@@ -7,7 +7,7 @@ part 'mood_entry_model.freezed.dart';
 part 'mood_entry_model.g.dart';
 
 @freezed
-class MoodEntryModel with _$MoodEntryModel {
+abstract class MoodEntryModel with _$MoodEntryModel {
   const MoodEntryModel._();
 
   const factory MoodEntryModel({

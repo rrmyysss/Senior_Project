@@ -13,9 +13,9 @@ class ConfidenceScore {
   bool get isConfident => value >= 0.60;
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-    return o is ConfidenceScore && o.value == value;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is ConfidenceScore && other.value == value;
   }
 
   @override

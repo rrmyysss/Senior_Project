@@ -6,7 +6,7 @@ part 'mood_entry.freezed.dart';
 part 'mood_entry.g.dart';
 
 @freezed
-class MoodEntry with _$MoodEntry {
+abstract class MoodEntry with _$MoodEntry {
   const factory MoodEntry({
     required String id,
     required String userId,

@@ -4,7 +4,7 @@ part 'user_preferences.freezed.dart';
 part 'user_preferences.g.dart';
 
 @freezed
-class UserPreferences with _$UserPreferences {
+abstract class UserPreferences with _$UserPreferences {
   const factory UserPreferences({
     required String userId,
     @Default([]) List<String> favoriteGenres,

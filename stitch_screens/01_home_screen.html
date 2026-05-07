@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Anasayfa Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#137fec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101922",
+                "lavender": "#E6E6FA",
+                "sky-blue": "#87CEEB",
+                },
+                fontFamily: {
+                "display": ["Plus Jakarta Sans", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 20px rgba(180, 190, 230, 0.2);
+        }
+        .dark .glass-panel {
+            background: rgba(16, 25, 34, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .dark .glass-card {
+            background: rgba(16, 25, 34, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-gradient-to-br from-[#E6E6FA] via-[#f0f4ff] to-[#cbebfd] min-h-screen text-slate-800 dark:text-slate-100 antialiased selection:bg-primary/30">
+<div class="relative mx-auto max-w-md w-full min-h-screen flex flex-col pb-28">
+<header class="flex items-center justify-between px-6 pt-14 pb-6 sticky top-0 z-20">
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-300">Hoşgeldin,</p>
+<h1 class="text-2xl font-bold tracking-tight text-slate-800 dark:text-white">Merhaba, Can</h1>
+</div>
+<button class="relative rounded-full p-1 ring-2 ring-white/60 dark:ring-white/10 overflow-hidden shadow-sm">
+<img alt="User profile picture showing a smiling young man" class="h-10 w-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUaA8b3ZYhkg6Se2BQQU2rWWiRmYKMnJwhpwXkQdPeTThWzOHcu2O15XDlSBcVco5m06sr2r3R2NKD4rR4Q7l4xw-52zdf5Gz8AvJnoXSKrezeB71TVXJiuqAPrKiS50uMX8_pIcq27qR4ZTKiLoKcR1UCOh7CiQmRTX_OI0UuGwYLOdOhjm18bvWjqqzXKqO5LNeaMYV51A8TA_KlZxdvNopACI6P2ceNLqV8qPnTEXmZVlffciusDwRi28DymImiCNJ2Ik_lFnL-"/>
+</button>
+</header>
+<main class="flex-1 flex flex-col gap-8 px-6 overflow-y-auto hide-scrollbar">
+<section class="relative overflow-hidden rounded-[2rem] glass-card dark:shadow-none p-6 transition-transform active:scale-[0.98]">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-sky-blue/20 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col items-center text-center gap-4 py-2">
+<div class="p-4 bg-white/60 backdrop-blur-sm rounded-full text-slate-700 shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-4xl">photo_camera</span>
+</div>
+<div>
+<h2 class="text-xl font-bold text-slate-800 dark:text-white">Duygunu Tara</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-[200px] mx-auto">Bugünkü modunu keşfetmek için yüzünü tarat</p>
+</div>
+<button class="mt-2 w-full max-w-[180px] h-12 bg-white/80 hover:bg-white text-slate-800 font-semibold rounded-full shadow-lg shadow-indigo-100/50 flex items-center justify-center gap-2 transition-all">
+<span>Tara</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-bold text-slate-800 dark:text-white">Son Çalınanlar</h2>
+<a class="text-xs font-semibold text-slate-600 hover:text-primary transition-colors" href="#">Tümü</a>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 -mx-6 px-6">
+<div class="flex-none w-36 group cursor-pointer">
+<div class="relative aspect-square rounded-[1.5rem] overflow-hidden mb-3 shadow-md shadow-indigo-100/50 group-hover:shadow-lg transition-all">
+<img alt="Morning vibes abstract art" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="Abstract colorful waves representing morning vibes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwQK7tE2ZVeLwuW2SKRcxG1slp-5YRmc0fd3fF2jyQUKrIUAsVou0ALS2wH6jKHid9gboD-W69Y_AaUQkeg_It21LYwAJWrkjJu6Dza7bkQnl3zEmQq7UhKqFx8zCFQ-ATvafpZOoHnL56v19ivch4xUdcUk_usPtbY-wnytIJBXr5MRUO5cS3wAiX9HOvapnblZ9qxjK5rmd68gDc9Ii9jSWxip4O3gBP_zjkPf7UlxeKKPdZswIqlk2WlC_DzUGmPkpOcPr9w4Ao"/>
+<div class="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h3 class="font-bold text-slate-800 dark:text-white text-sm truncate">Sabah Neşesi</h3>
+<div class="flex items-center gap-1 mt-1">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium bg-white/60 backdrop-blur-sm text-yellow-700 border border-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-200">
+                                Mutlu 😊
+                            </span>
+</div>
+</div>
+<div class="flex-none w-36 group cursor-pointer">
+<div class="relative aspect-square rounded-[1.5rem] overflow-hidden mb-3 shadow-md shadow-indigo-100/50 group-hover:shadow-lg transition-all">
+<img alt="Coffee vibes" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="Cozy coffee cup steam in warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3UnCT8ig0w7E_GWJTTtY6_CgcvGQUWNQ2EvE_c_7Q1YnYTKVx1ug-zNIqrpWwE721876x7AA-AgPC1SOtxo7U3gB5MOjYT6o56MET_AyG8uPk3Vbj-so-9pbtEir3i6NxtSHcvsySTCfp_pO3IIKBF-DQw5LWs4_1DLhDbv71L8S1nNkKeCp1pesAxMpC1tatIzOUDmVtSvY6Tq4d9JB5xMujSl3Ngzndr-EhhpypJYI0eoR-gyFFg-qibmwN579gvOC7kpNeA7_C"/>
+<div class="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h3 class="font-bold text-slate-800 dark:text-white text-sm truncate">Akşamüstü Kahvesi</h3>
+<div class="flex items-center gap-1 mt-1">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium bg-white/60 backdrop-blur-sm text-orange-700 border border-orange-100 dark:bg-orange-900/30 dark:text-orange-200">
+                                Sakin ☕
+                            </span>
+</div>
+</div>
+<div class="flex-none w-36 group cursor-pointer">
+<div class="relative aspect-square rounded-[1.5rem] overflow-hidden mb-3 shadow-md shadow-indigo-100/50 group-hover:shadow-lg transition-all">
+<img alt="Focus abstract art" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" data-alt="Deep blue abstract geometric shapes for focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcZC7SYIB4SE6P9iOIEbbqh5dYoi_DnPBESgs24E0pCA2vPFwGq5mHWBvqMKDMC5l6v1WoGTM8jUj446KRTP2SVkZQwNqz9SBtn4FKpVrdthVwJQKBVTm0UYzMm9W-1E2cLoWJKBfn_wTAaaRrqajGt44tCGYlaVLzb7xFPG-31b6sEXg1BvLKvkthwO96in2n9i0uk7L28VjRRL_EQ4mQIAwfY_Z69RIgMi7n53mmxUJSaCIC5PSFW6IcWWqo6VNtp6kN9QExzVLk"/>
+<div class="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors"></div>
+</div>
+<h3 class="font-bold text-slate-800 dark:text-white text-sm truncate">Derin Odak</h3>
+<div class="flex items-center gap-1 mt-1">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium bg-white/60 backdrop-blur-sm text-indigo-700 border border-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-200">
+                                Üretken 🚀
+                            </span>
+</div>
+</div>
+</div>
+</section>
+<section class="pb-6">
+<h2 class="text-lg font-bold text-slate-800 dark:text-white mb-4">Sana Özel</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="group relative rounded-[1.5rem] overflow-hidden aspect-[4/5] cursor-pointer shadow-sm shadow-indigo-100/40">
+<img alt="Nature calming playlist cover" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90" data-alt="Green leaves pattern with sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2ksfVfiJ-E5Nws3-0JD2hW3La7ozE5gX2RveUO3fXl0OBPvMAYG4mP_ywEgZ6hX6RnbydMxY5rBgOosACiJ5PcaqYpuS_433d_lWTzSOh72QhOtc8JKTbG0exiVbHfYjNk193H8l91zR_vWHdY2X-ec98VdCDYUJRwhbROzFm5sdG3b_z23tEGQqwrKCMAUx-I1Qtv37HIB4wI4mr-clQD0i3oBprhCK6FE0ry00HvS-WNm29HpFQq8O2v29CnyBzYJ5y0Uhfq31v"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent p-4 flex flex-col justify-end">
+<div class="glass-panel rounded-2xl p-3 border-0 bg-white/20 backdrop-blur-md">
+<p class="text-white font-bold text-md leading-tight">Doğa Sesleri</p>
+<p class="text-white/90 text-[10px] mt-1 font-medium">Rahatlama</p>
+</div>
+</div>
+</div>
+<div class="group relative rounded-[1.5rem] overflow-hidden aspect-[4/5] cursor-pointer shadow-sm shadow-indigo-100/40">
+<img alt="City night lights playlist cover" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90" data-alt="Blurred city lights at night bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpK2QsmHiPfj8YqwBubkthidKX4zAxYDkykV83t3PwICKhmRiedVOu_cV6VhqipfYrcTygmeLxeoTfb9yLYwhSV71SACmZptZxqOlAp-6BA763tbkIi0q3SgH4z7Rwsxxgu8-WxXkGRwbRo61xwRbQVvGQmmSfLidRiRx6p7aL7DqIlOAeNJgC3uEFk5fJOuKWdx4hchIt5uKl1bn2wHLfx5EC8Cp73xNsvJ2KdQEcwoMp-0cFNKbpDZ7KlzuUck5wN5vC1sB2OkLD"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent p-4 flex flex-col justify-end">
+<div class="glass-panel rounded-2xl p-3 border-0 bg-white/20 backdrop-blur-md">
+<p class="text-white font-bold text-md leading-tight">Gece Sürüşü</p>
+<p class="text-white/90 text-[10px] mt-1 font-medium">Melankolik</p>
+</div>
+</div>
+</div>
+<div class="group relative rounded-[1.5rem] overflow-hidden aspect-[4/5] cursor-pointer shadow-sm shadow-indigo-100/40">
+<img alt="Party vibes playlist cover" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90" data-alt="Pink and blue neon party atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4YMiiBF5OnyvPWbNvTBmNsCY0sjTIFnsAzocUPr4XVeQRzHmP7hwzdqkwS3HlAcnqbJDXE3C49JhphgWmUjWCfQKoztioKa1UlviNurfyX40GWDFz2bm2br5cToLNJwSky3U8p1r3BESoEKinG8BsSef2F7JRfTlzoZuYwosviA5XMYzXkM_U1nj9rvJVic7xAVxklgApVXAZuMofF2JDw-KejVS3rcaCvCqLxSyN4dK-4d8X37OczZvKtv83nCyT5hfrkEPLUfq8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent p-4 flex flex-col justify-end">
+<div class="glass-panel rounded-2xl p-3 border-0 bg-white/20 backdrop-blur-md">
+<p class="text-white font-bold text-md leading-tight">Haftasonu</p>
+<p class="text-white/90 text-[10px] mt-1 font-medium">Parti</p>
+</div>
+</div>
+</div>
+<div class="group relative rounded-[1.5rem] overflow-hidden aspect-[4/5] cursor-pointer shadow-sm shadow-indigo-100/40">
+<img alt="Meditation playlist cover" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90" data-alt="Person meditating against sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0T1_OF6V6wWh1wYKIrLO4kwk-g5kc5IcVtE7NemCGrnKVtHHxd_FYz0KI-Qu4z4wNAQJ6jcNFn9tMUzM7fSQ_AidsREwGhHLKcQY1_lhEWQtfUsTL8MItwns8h_6uG8ryjkrO2-vsGcXaI2EY2ieUW29gHvr7jcIthryfo7kM2DLrgXTxJn89WaJBI5BevwigYwyDhcK-CS4jpu0glmm_IB9nvaeAlNv6ZbCaHJgT5u8SABSJgaZiT00iGQaBhsfelmQ4YtVs-saU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent p-4 flex flex-col justify-end">
+<div class="glass-panel rounded-2xl p-3 border-0 bg-white/20 backdrop-blur-md">
+<p class="text-white font-bold text-md leading-tight">Yoga Akışı</p>
+<p class="text-white/90 text-[10px] mt-1 font-medium">Wellness</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<nav class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-[360px] h-[72px] glass-panel rounded-full flex items-center justify-between px-2 pl-2 pr-2 shadow-xl shadow-indigo-200/30 z-50">
+<a class="flex items-center gap-2 bg-white px-5 py-3 rounded-full transition-all shadow-sm" href="#">
+<span class="material-symbols-outlined text-black" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">home</span>
+<span class="text-sm font-bold text-black">Anasayfa</span>
+</a>
+<div class="flex items-center justify-around flex-1 px-2">
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-full text-slate-500/80 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors hover:bg-white/30" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">explore</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-full text-slate-500/80 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors hover:bg-white/30" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">library_music</span>
+</a>
+<a class="flex flex-col items-center justify-center w-12 h-12 rounded-full text-slate-500/80 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors hover:bg-white/30" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">person</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

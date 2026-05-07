@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart'; // Bu dosya flutterfire configure ile oluştu
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'firebase_options.dart';
+import 'injection.dart';
+import 'application/auth/bloc/auth_bloc.dart';
+import 'application/mood/bloc/mood_bloc.dart';
+import 'application/music/bloc/music_bloc.dart';
+import 'presentation/core/router/app_router.dart';
 
 void main() async {
-  // Widget'ların Firebase'den önce hazır olduğundan emin oluyoruz
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Firebase'i senin yapılandırmanla (firebase_options.dart) başlatıyoruz
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Dependency injection başlat
+  configureDependencies();
 
   runApp(const MainApp());
 }
@@ -17,10 +24,21 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(child: Text('MoodTune Firebase Bağlantısı Başarılı! 🎵')),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (_) => getIt<AuthBloc>(),
+        ),
+        BlocProvider<MoodBloc>(
+          create: (_) => getIt<MoodBloc>(),
+        ),
+        BlocProvider<MusicBloc>(
+          create: (_) => getIt<MusicBloc>(),
+        ),
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRouter.router,
       ),
     );
   }

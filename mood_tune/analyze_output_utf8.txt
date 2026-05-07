@@ -1,0 +1,60 @@
+﻿Analyzing mood_tune...                                          
+
+  error - The method 'getRecommendedTracksByMood' isn't defined for the type 'IMusicRepository' - lib\application\music\bloc\music_bloc.dart:17:58 - undefined_method
+  error - The method 'searchYouTubeTracks' isn't defined for the type 'IMusicRepository' - lib\application\music\bloc\music_bloc.dart:27:59 - undefined_method
+   info - The parameter name 'o' doesn't match the name 'other' in the overridden method - lib\domain\core\value_objects\unique_id.dart:17:27 - avoid_renaming_method_parameters
+  error - Missing concrete implementations of '_$MoodEntry.toJson', 'getter _$MoodEntry.confidence', 'getter _$MoodEntry.id', 'getter _$MoodEntry.method', and 6 more - lib\domain\mood\entities\mood_entry.dart:9:7 - non_abstract_class_inherits_abstract_member
+   info - The parameter name 'o' doesn't match the name 'other' in the overridden method - lib\domain\mood\value_objects\confidence_score.dart:16:27 - avoid_renaming_method_parameters
+  error - Missing concrete implementations of '_$MusicTrack.toJson', 'getter _$MusicTrack.artist', 'getter _$MusicTrack.channelName', 'getter _$MusicTrack.durationMs', and 10 more - lib\domain\music\entities\music_track.dart:9:7 - non_abstract_class_inherits_abstract_member
+  error - Missing concrete implementations of '_$YouTubeSearchResult.toJson', 'getter _$YouTubeSearchResult.channelName', 'getter _$YouTubeSearchResult.duration', 'getter _$YouTubeSearchResult.thumbnailUrl', and 3 more - lib\domain\music\entities\youtube_search_result.dart:7:7 - non_abstract_class_inherits_abstract_member
+  error - Missing concrete implementations of '_$User.toJson', 'getter _$User.createdAt', 'getter _$User.displayName', 'getter _$User.email', and 5 more - lib\domain\user\entities\user.dart:7:7 - non_abstract_class_inherits_abstract_member
+  error - Missing concrete implementations of '_$UserPreferences.toJson', 'getter _$UserPreferences.dailyMoodReminderTime', 'getter _$UserPreferences.explicitContentAllowed', 'getter _$UserPreferences.favoriteGenres', and 2 more - lib\domain\user\entities\user_preferences.dart:7:7 - non_abstract_class_inherits_abstract_member
+  error - Missing concrete implementations of '_$MoodEntryModel.toJson', 'getter _$MoodEntryModel.confidence', 'getter _$MoodEntryModel.id', 'getter _$MoodEntryModel.method', and 6 more - lib\infrastructure\mood\models\mood_entry_model.dart:10:7 - non_abstract_class_inherits_abstract_member
+  error - Missing concrete implementations of 'IMusicRepository.getTracksByMood' and 'IMusicRepository.searchYouTube' - lib\infrastructure\music\repositories\mock_music_repository.dart:12:7 - non_abstract_class_inherits_abstract_member
+warning - The method doesn't override an inherited method - lib\infrastructure\music\repositories\mock_music_repository.dart:14:45 - override_on_non_overriding_member
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:20:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:20:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:29:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:29:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:38:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:38:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:49:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:49:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:58:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:58:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:67:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:67:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:78:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:78:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:87:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:87:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:96:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:96:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:107:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:107:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:116:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:116:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:125:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:125:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:136:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:136:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:145:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:145:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:154:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:154:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:165:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:165:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:174:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:174:15 - missing_required_argument
+  error - The named parameter 'channelName' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:183:15 - missing_required_argument
+  error - The named parameter 'thumbnailUrl' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:183:15 - missing_required_argument
+warning - The method doesn't override an inherited method - lib\infrastructure\music\repositories\mock_music_repository.dart:199:54 - override_on_non_overriding_member
+  error - The named parameter 'duration' is required, but there's no corresponding argument - lib\infrastructure\music\repositories\mock_music_repository.dart:203:7 - missing_required_argument
+  error - Missing concrete implementations of '_$UserModel.toJson', 'getter _$UserModel.createdAt', 'getter _$UserModel.displayName', 'getter _$UserModel.email', and 5 more - lib\infrastructure\user\models\user_model.dart:8:7 - non_abstract_class_inherits_abstract_member
+warning - Unused import: '../../core/atoms/mood_chip.dart' - lib\presentation\music\pages\play_music_page.dart:5:8 - unused_import
+  error - The named parameter 'onMenuTap' is required, but there's no corresponding argument - lib\presentation\playlist\pages\my_playlists_page.dart:40:22 - missing_required_argument
+  error - The named parameter 'songCount' is required, but there's no corresponding argument - lib\presentation\playlist\pages\my_playlists_page.dart:40:22 - missing_required_argument
+  error - The named parameter 'trackCount' isn't defined - lib\presentation\playlist\pages\my_playlists_page.dart:44:17 - undefined_named_parameter
+warning - Unused import: 'package:go_router/go_router.dart' - lib\presentation\playlist\pages\new_playlist_page.dart:2:8 - unused_import
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\presentation\playlist\pages\new_playlist_page.dart:88:17 - deprecated_member_use
+

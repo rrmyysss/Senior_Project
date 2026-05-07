@@ -14,9 +14,9 @@ class UniqueId {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-    return o is UniqueId && o.value == value;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is UniqueId && other.value == value;
   }
 
   @override
