@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Playlist Selection</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8c2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#191022",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.5rem",
+                        "xl": "2rem",
+                        "2xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gradient-to-br from-[#E8E4F3] to-[#C8DFF0] min-h-screen text-slate-900 font-display antialiased selection:bg-primary/20">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden pb-36 mx-auto max-w-md bg-white/30 backdrop-blur-sm shadow-2xl">
+<div class="flex flex-col gap-2 p-4 pb-2 pt-6">
+<div class="flex items-center h-12 justify-between">
+<button aria-label="Go back" class="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/60 hover:bg-white transition-colors text-slate-900 shadow-sm">
+<span class="material-symbols-outlined text-xl">arrow_back</span>
+</button>
+</div>
+<h1 class="text-slate-900 tracking-tight text-[28px] font-bold leading-tight mt-2 text-left">Playlist Seç</h1>
+</div>
+<div class="px-4">
+<label class="flex flex-col h-12 w-full mb-6 relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-primary/60">search</span>
+</div>
+<input class="block w-full h-full pl-12 pr-4 rounded-full bg-white border-0 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-primary/50 shadow-sm transition-shadow" placeholder="Playlist ara..." type="text"/>
+</label>
+</div>
+<div class="flex flex-col gap-4 px-4 pb-4">
+<div class="group flex items-center gap-4 bg-white p-3 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-white/50">
+<div class="relative size-16 shrink-0 rounded-xl bg-gradient-to-br from-yellow-200 to-orange-400 overflow-hidden shadow-inner" data-alt="Abstract gradient representing sunshine and happiness">
+<div class="absolute inset-0 flex items-center justify-center text-white/40">
+<span class="material-symbols-outlined text-3xl">music_note</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h4 class="text-base font-bold text-slate-900 leading-tight line-clamp-1">Güneşli Günler Mix</h4>
+<p class="text-xs text-slate-500 font-medium">Küratör: Melis Y.</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-yellow-100 px-2 py-0.5 text-[10px] font-medium text-yellow-800">
+                             Mutlu
+                        </span>
+<span class="text-[10px] text-slate-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[10px]">timer</span> 45 dk
+                    </span>
+</div>
+</div>
+<button class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</button>
+</div>
+<div class="group flex items-center gap-4 bg-white p-3 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-white/50">
+<div class="relative size-16 shrink-0 rounded-xl bg-gradient-to-tr from-pink-300 to-primary/40 overflow-hidden shadow-inner" data-alt="Abstract gradient pattern with pink and purple hues">
+<div class="absolute inset-0 flex items-center justify-center text-white/40">
+<span class="material-symbols-outlined text-3xl">queue_music</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h4 class="text-base font-bold text-slate-900 leading-tight line-clamp-1">Pop Enerji Patlaması</h4>
+<p class="text-xs text-slate-500 font-medium">Küratör: MoodTune</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-yellow-100 px-2 py-0.5 text-[10px] font-medium text-yellow-800">
+                             Mutlu
+                        </span>
+<span class="text-[10px] text-slate-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[10px]">timer</span> 1s 20dk
+                    </span>
+</div>
+</div>
+<button class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</button>
+</div>
+<div class="group flex items-center gap-4 bg-white p-3 rounded-2xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-white/50">
+<div class="relative size-16 shrink-0 rounded-xl bg-gradient-to-bl from-green-200 to-emerald-400 overflow-hidden shadow-inner" data-alt="Soft green gradient abstract">
+<div class="absolute inset-0 flex items-center justify-center text-white/40">
+<span class="material-symbols-outlined text-3xl">graphic_eq</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h4 class="text-base font-bold text-slate-900 leading-tight line-clamp-1">Sabah Kahvesi Modu</h4>
+<p class="text-xs text-slate-500 font-medium">Küratör: Caner T.</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-yellow-100 px-2 py-0.5 text-[10px] font-medium text-yellow-800">
+                             Mutlu
+                        </span>
+<span class="text-[10px] text-slate-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[10px]">timer</span> 32 dk
+                    </span>
+</div>
+</div>
+<button class="size-10 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined filled">play_arrow</span>
+</button>
+</div>
+</div>
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-[400px] z-50 flex flex-col gap-3">
+<div class="flex items-center gap-3 bg-white/95 backdrop-blur-md p-2 pr-3 rounded-full shadow-lg shadow-slate-300/40 ring-1 ring-white/50">
+<div class="relative size-10 shrink-0 rounded-full bg-indigo-100 overflow-hidden shadow-sm">
+<img alt="Album Art" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJHjAv3bT02XYrjSwSQCHAOXXHHIfrKwGNOTawzI0TjhrgwzZZfDb1vD9iOEWggaq53rtePA_sVp91xVgx0Oc33u9GBJV397-Nmm7nJoi15VU36Um5jA0ltUyQp9s8gjc_IjYzlHy9RBEYhY2TbTIpKek_4thDv6N8vPF4avkgNS9G1Ls_keQmaAeG1Gw5-aKj-DKqsPmS3GETWOYITW2LKyBqAqZd4lieivV5de2sqDWRFXyIUG4T0ODr1wZW-Kmb4_xSVkbAKQmG"/>
+</div>
+<div class="flex flex-1 flex-col justify-center overflow-hidden mr-1">
+<h5 class="text-sm font-bold text-slate-900 truncate leading-tight">Sabah Işığı</h5>
+<p class="text-xs text-slate-500 truncate font-medium">Barış Manço</p>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="text-slate-400 hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+<div class="w-px h-6 bg-slate-200 mx-0.5"></div>
+<button class="text-slate-500 hover:text-slate-900 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">skip_previous</span>
+</button>
+<button class="flex items-center justify-center size-9 rounded-full bg-primary text-white shadow-md hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined filled text-[22px]">pause</span>
+</button>
+<button class="text-slate-500 hover:text-slate-900 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">skip_next</span>
+</button>
+</div>
+</div>
+<div class="flex h-16 items-center justify-between rounded-full bg-white shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 px-2 backdrop-blur-md bg-opacity-90">
+<a class="flex flex-col items-center justify-center gap-1 w-full h-full group" href="#">
+<div class="flex h-9 w-14 items-center justify-center rounded-full text-slate-400 group-hover:bg-slate-50 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[24px]">home</span>
+</div>
+</a>
+<a class="flex items-center justify-center gap-2 px-6 h-11 bg-white rounded-full shadow-sm text-slate-900 ring-1 ring-slate-100/50" href="#">
+<span class="material-symbols-outlined text-[24px] text-slate-900">explore</span>
+<span class="text-sm font-bold">Keşfet</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-full h-full group" href="#">
+<div class="flex h-9 w-14 items-center justify-center rounded-full text-slate-400 group-hover:bg-slate-50 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[24px]">library_music</span>
+</div>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-full h-full group" href="#">
+<div class="flex h-9 w-14 items-center justify-center rounded-full text-slate-400 group-hover:bg-slate-50 group-hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[24px]">person</span>
+</div>
+</a>
+</div>
+</div>
+</div>
+</body></html>

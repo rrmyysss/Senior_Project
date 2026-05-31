@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Register</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87CEEB",
+                        "secondary": "#C9B8F0",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "brand-lavender": "#C9B8F0",
+                        "brand-sky": "#87CEEB",
+                        "brand-navy": "#2d3b4b",
+                        "brand-text-sub": "#4a5568",
+                        "input-bg": "rgba(255, 255, 255, 0.6)",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "pill": "9999px",
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .bg-moodtune-gradient {
+            background: linear-gradient(180deg, #E6E6FA 0%, #B0E0E6 100%);
+        }.input-wrapper:focus-within {
+            transform: scale(1.02);
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 12px rgba(135, 206, 235, 0.15);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(800px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-slate-100 h-screen w-full overflow-hidden flex flex-col items-center justify-center relative">
+<div class="absolute inset-0 bg-moodtune-gradient z-0"></div>
+<div class="absolute top-[-15%] left-[-15%] w-[60vh] h-[60vh] bg-white opacity-30 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+<div class="absolute bottom-[-15%] right-[-15%] w-[70vh] h-[70vh] bg-[#C9B8F0] opacity-15 blur-[120px] rounded-full z-0 pointer-events-none"></div>
+<div class="absolute z-20" style="top: 48px; left: 24px;">
+<button class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all active:scale-95 text-brand-navy">
+<span class="material-symbols-outlined text-[24px] font-normal">arrow_back</span>
+</button>
+</div>
+<div class="relative z-10 w-full max-w-md h-full flex flex-col p-6 overflow-y-auto no-scrollbar">
+<div class="flex-none flex flex-col items-center pt-24 pb-0 mb-4">
+<h1 class="text-black text-3xl font-bold tracking-tight text-center">
+                Müziğine Kavuş
+            </h1>
+<p class="text-brand-text-sub text-xl font-medium mt-2 opacity-90 text-center max-w-[95%] leading-relaxed">
+                Bir hesap oluştur, duygularına özel playlist seni beklesin.
+            </p>
+</div>
+<div class="w-full space-y-4 flex flex-col mt-0">
+<div class="w-full input-wrapper transition-all duration-300 rounded-pill bg-input-bg backdrop-blur-sm">
+<input class="w-full h-14 bg-transparent border-none focus:ring-0 text-brand-navy placeholder:text-brand-text-sub/50 px-6 text-base font-medium rounded-pill" placeholder="Ad" type="text"/>
+</div>
+<div class="w-full input-wrapper transition-all duration-300 rounded-pill bg-input-bg backdrop-blur-sm">
+<input class="w-full h-14 bg-transparent border-none focus:ring-0 text-brand-navy placeholder:text-brand-text-sub/50 px-6 text-base font-medium rounded-pill" placeholder="Soyad" type="text"/>
+</div>
+<div class="w-full input-wrapper transition-all duration-300 rounded-pill bg-input-bg backdrop-blur-sm">
+<input class="w-full h-14 bg-transparent border-none focus:ring-0 text-brand-navy placeholder:text-brand-text-sub/50 px-6 text-base font-medium rounded-pill" placeholder="Telefon Numarası" type="tel"/>
+</div>
+<div class="w-full input-wrapper transition-all duration-300 rounded-pill bg-input-bg backdrop-blur-sm">
+<input class="w-full h-14 bg-transparent border-none focus:ring-0 text-brand-navy placeholder:text-brand-text-sub/50 px-6 text-base font-medium rounded-pill" placeholder="E-posta" type="email"/>
+</div>
+<div class="w-full relative input-wrapper transition-all duration-300 rounded-pill bg-input-bg backdrop-blur-sm flex items-center">
+<input class="flex-1 h-14 bg-transparent border-none focus:ring-0 text-brand-navy placeholder:text-brand-text-sub/50 px-6 text-base font-medium rounded-pill" placeholder="Şifre" type="password"/>
+<button class="absolute right-4 text-brand-text-sub/50 hover:text-brand-text-sub transition-colors">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+<div class="w-full relative input-wrapper transition-all duration-300 rounded-pill bg-input-bg backdrop-blur-sm flex items-center">
+<input class="flex-1 h-14 bg-transparent border-none focus:ring-0 text-brand-navy placeholder:text-brand-text-sub/50 px-6 text-base font-medium rounded-pill" placeholder="Şifre Tekrar" type="password"/>
+<button class="absolute right-4 text-brand-text-sub/50 hover:text-brand-text-sub transition-colors">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+<div class="h-2"></div>
+<button class="w-full h-14 rounded-pill bg-gradient-to-r from-[#C9B8F0] to-[#87CEEB] text-white font-bold text-lg shadow-lg shadow-indigo-200/40 hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex items-center justify-center active:scale-95">
+                Kayıt Ol
+            </button>
+</div>
+<div class="flex-none pt-8 pb-8 text-center mt-auto">
+<p class="text-sm text-brand-text-sub font-medium">
+                Zaten hesabın var mı? 
+                <a class="text-brand-navy font-bold hover:underline ml-1" href="#">Giriş Yap</a>
+</p>
+</div>
+</div>
+</body></html>

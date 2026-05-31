@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Create Playlist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "lavender": "#E8E4F3",
+                        "skyblue": "#C8DFF0",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: #8b5cf6;outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+        }.no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }.no-scrollbar {
+          -ms-overflow-style: none;scrollbar-width: none;}
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display antialiased text-slate-900 bg-gradient-to-b from-[#E8E4F3] to-[#C8DFF0] min-h-screen">
+<div class="relative flex flex-col w-full max-w-md mx-auto min-h-screen pb-24">
+<header class="flex items-center justify-between p-6 pt-8 z-10 sticky top-0 bg-gradient-to-b from-[#E8E4F3]/90 to-[#E8E4F3]/0 backdrop-blur-[2px]">
+<button class="flex items-center justify-center w-10 h-10 rounded-full glass-panel hover:bg-white/60 transition-colors text-slate-700">
+<span class="material-symbols-outlined text-xl">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-slate-800 tracking-tight">Yeni Playlist</h1>
+<div class="w-10"></div>
+</header>
+<main class="flex-1 flex flex-col px-6 gap-6 overflow-y-auto no-scrollbar">
+<div class="flex flex-col items-center justify-center w-full">
+<div class="relative group cursor-pointer w-48 h-48 rounded-[2rem] border-2 border-dashed border-slate-400/50 hover:border-violet-500 hover:bg-white/20 transition-all flex flex-col items-center justify-center gap-3">
+<div class="w-14 h-14 rounded-full bg-white/40 flex items-center justify-center text-violet-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">add_a_photo</span>
+</div>
+<div class="text-center px-4">
+<p class="text-sm font-bold text-slate-700">Kapak Fotoğrafı Ekle</p>
+<p class="text-xs text-slate-500 mt-1">Görsel yüklemek için dokun</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<input class="glass-input w-full px-5 py-4 rounded-full text-slate-800 placeholder:text-slate-500 font-medium" placeholder="Playlist Adı" type="text"/>
+</div>
+<div class="flex flex-col gap-3">
+<h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide px-1">Duygu Etiketi Seç</h2>
+<div class="flex gap-3 overflow-x-auto pb-2 no-scrollbar -mx-6 px-6">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-indigo-500/20 shrink-0 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">sentiment_satisfied</span>
+<span class="text-sm font-semibold">Mutlu</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full glass-panel text-slate-700 hover:bg-white/60 shrink-0 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">nightlight</span>
+<span class="text-sm font-medium">Sakin</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full glass-panel text-slate-700 hover:bg-white/60 shrink-0 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span class="text-sm font-medium">Enerjik</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full glass-panel text-slate-700 hover:bg-white/60 shrink-0 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+<span class="text-sm font-medium">Melankolik</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between glass-panel p-2 pl-5 pr-2 rounded-full">
+<span class="text-slate-700 font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-500 text-xl">lock</span>
+                    Gizlilik
+                </span>
+<div class="flex bg-slate-200/50 p-1 rounded-full relative">
+<button class="relative z-10 px-4 py-1.5 rounded-full text-xs font-bold text-slate-500 hover:text-slate-700 transition-colors">Gizli</button>
+<button class="relative z-10 px-4 py-1.5 rounded-full text-xs font-bold text-violet-600 bg-white shadow-sm transition-all">Herkese Açık</button>
+</div>
+</div>
+<div class="flex flex-col gap-4 mt-2">
+<div class="flex items-center justify-between px-1">
+<h2 class="text-sm font-bold text-slate-700 uppercase tracking-wide">Şarkılar</h2>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-500">search</span>
+</div>
+<input class="glass-input w-full pl-11 pr-5 py-3.5 rounded-full text-slate-800 placeholder:text-slate-500 text-sm font-medium" placeholder="Şarkı ekle..." type="text"/>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between p-2 pr-4 rounded-[1.25rem] glass-panel group">
+<div class="flex items-center gap-3">
+<img alt="Abstract swirling colors representing album art for Neon Dreams" class="w-12 h-12 rounded-2xl object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjx_LpBQnqxkQCY_naV00zLHi_G5R53jDXWzXPZG-i1Gdi-y69Luvgb2qNu67mhHsxsjS4srtdSOnyDcgmnZwysr00qgGzXlpNDGIuM3UdIrVcOAK6e9prb2FwG7cR_YceBeaUhNhteFdQ4BExdLvZsfupQRyOLpKp04NpLD_yOtHzRz8eCYCuIhw55XuM5QfVNUdW-X97IOlyuedJP9HiR_K0mpdiP3fUhTtAubh8_7qo0PSUmAa6y6BF2EQOXF2KxLvBORwWWmqQ"/>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-800">Neon Dreams</span>
+<span class="text-xs text-slate-500 font-medium">Synthwave Collective</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-red-400 hover:bg-red-50 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-xl">remove_circle</span>
+</button>
+</div>
+<div class="flex items-center justify-between p-2 pr-4 rounded-[1.25rem] glass-panel group">
+<div class="flex items-center gap-3">
+<img alt="Minimalist landscape album cover for Midnight Jazz" class="w-12 h-12 rounded-2xl object-cover shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBj7wjtlUYtI2kPRI8AyvTZpSsig04gDbFs1q06LRIWs33IkW0zDOQZv638aqrXdShi2hGzcjq6YQP0Sx0lCsO8Xq_lZo-93rHkpgL-Osz43VrETxsra-yBTZ1kSb2Z7cXxEsZSwPtqMOE-Bx34RdbB8eqDug4JEnn3Ux7rAD6X0wZwhr1ZQK2S6hiqQGjjLcqzTVSp2NEE7V715YBu9eg4B5wx24vGNKv6LtdQcNHwp4sprKw0rRIc5BaVQ-pALIgKmgsad7aRkJj6"/>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-800">Midnight Jazz</span>
+<span class="text-xs text-slate-500 font-medium">The Smooth Trio</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-red-400 hover:bg-red-50 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined text-xl">remove_circle</span>
+</button>
+</div>
+</div>
+</div>
+<div class="h-6"></div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#C8DFF0] via-[#C8DFF0]/90 to-transparent z-20 pointer-events-none">
+<div class="max-w-md mx-auto pointer-events-auto">
+<button class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-4 rounded-full shadow-lg shadow-indigo-500/30 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">playlist_add</span>
+                    Playlist Oluştur
+                </button>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Login</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "primary-content": "#ffffff",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "2rem", 
+                        "xl": "3rem", 
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'glow': '0 0 20px rgba(19, 127, 236, 0.3)'
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .mood-gradient {
+            background: linear-gradient(180deg, #F0F4F8 0%, #E6E6FA 40%, #D4E7F7 70%, #C8E3F5 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus-within {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 20px rgba(19, 127, 236, 0.1);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #B39DDB 0%, #90CAF9 100%);
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #A28CCB 0%, #80BAE9 100%);
+        }
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="mood-gradient min-h-screen font-display text-slate-800 antialiased selection:bg-primary/20 selection:text-primary overflow-x-hidden">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto px-6 py-8 justify-between">
+<div class="absolute z-10" style="top: 48px; left: 24px;">
+<button class="group flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-soft text-[#101922] hover:shadow-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col justify-center w-full mt-24">
+<div class="mb-8 text-center">
+<h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-4">
+                    Yeniden Merhaba
+                </h1>
+<p class="text-lg text-slate-600 font-medium opacity-90 leading-snug px-4">
+                    Müziğin seni bekliyor, sadece bir bakış yeter.
+                </p>
+</div>
+<div class="space-y-5">
+<div class="glass-input flex items-center rounded-full px-5 py-1 border border-white/60 focus-within:border-primary/50 group">
+<input class="w-full bg-transparent border-none p-3 text-slate-800 placeholder:text-slate-400 focus:ring-0 text-base font-medium leading-relaxed text-left" placeholder="E-posta" type="email"/>
+<span class="material-symbols-outlined text-slate-400 group-focus-within:text-primary transition-colors absolute right-5">mail</span>
+</div>
+<div class="glass-input flex items-center rounded-full px-5 py-1 border border-white/60 focus-within:border-primary/50 group relative">
+<input class="w-full bg-transparent border-none p-3 text-slate-800 placeholder:text-slate-400 focus:ring-0 text-base font-medium leading-relaxed text-left" placeholder="Şifre" type="password"/>
+<button class="absolute right-5 flex items-center justify-center text-slate-400 hover:text-slate-600 focus:outline-none group-focus-within:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+<div class="flex items-center justify-between px-4 pt-1">
+<label class="flex items-center space-x-2 cursor-pointer group">
+<input class="form-checkbox h-5 w-5 rounded-md border-slate-300 text-primary focus:ring-primary/50 transition duration-150 ease-in-out bg-white/50" type="checkbox"/>
+<span class="text-sm font-medium text-slate-600 group-hover:text-slate-800 transition-colors">Beni Hatırla</span>
+</label>
+<a class="text-sm font-semibold text-black hover:text-black/80 transition-colors" href="#">
+                        Şifremi Unuttum?
+                    </a>
+</div>
+<div class="pt-6">
+<button class="w-full btn-gradient text-white font-bold text-lg py-4 rounded-full shadow-glow shadow-primary/30 transition-all transform active:scale-[0.98] flex items-center justify-center">
+                        Giriş Yap
+                    </button>
+</div>
+</div>
+</div>
+<div class="pt-8 pb-4 text-center">
+<p class="text-base text-slate-600 font-medium">
+                Hesabın yok mu? 
+                <a class="text-black font-bold hover:underline decoration-2 underline-offset-4 ml-1" href="#">
+                    Kayıt Ol
+                </a>
+</p>
+<div class="h-2"></div>
+</div>
+</div>
+</body></html>

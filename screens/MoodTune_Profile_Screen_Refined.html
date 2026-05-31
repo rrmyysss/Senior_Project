@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#8c30e8",
+                        "primary-dark": "#7020c0",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#191121",
+                    },
+                    fontFamily: {
+                        display: ["Plus Jakarta Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "1.5rem", 
+                        "xl": "2rem", 
+                        "2xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'mood-gradient': 'linear-gradient(180deg, #E8E4F3 0%, #C8DFF0 100%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }.scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }.scrollbar-hide {
+            -ms-overflow-style: none;scrollbar-width: none;}
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-mood-gradient min-h-screen text-[#140e1b] antialiased overflow-x-hidden pb-32 relative">
+<header class="sticky top-0 z-30 flex items-center justify-between px-6 py-6">
+<h2 class="text-[#140e1b] text-2xl font-bold tracking-tight">Profil</h2>
+</header>
+<main class="flex flex-col gap-6 px-4 pt-4">
+<section class="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/40 flex flex-col items-center gap-4">
+<div class="relative">
+<div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-[#8c30e8] to-[#C8DFF0]">
+<div class="w-full h-full rounded-full bg-white p-0.5 overflow-hidden">
+<img alt="Young man smiling portrait" class="w-full h-full object-cover rounded-full" data-alt="Portrait of a smiling user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsjuugLipLZ0Af3tAAZupdtcjeZE5R-GqHvWxmy-k0Iat2HZk4nJIWoFR_Q-n2iInXSQvMYZ2sG9KZMj0hlLQ55ykbvu9UJrMu4qx4iU0981xUGo962vDln-ay2hHn81NBSKVHAVQex2mZF8v2fYqFzIUceBeZtyJ1KKApM6k09gE5AaeHQcG5Iq5NJfwwHyJPdYpwCWffly-6Um7KxVhAovuGQzbl88ssdufSZjHAFcDRKZPxW2_5P9R3nP6bYuoIUZwZ0Aq2JtbC"/>
+</div>
+</div>
+</div>
+<div class="text-center space-y-1 pb-1">
+<h1 class="text-2xl font-bold text-[#140e1b]">Can Yılmaz</h1>
+</div>
+<button class="w-full max-w-[200px] bg-[#ede7f3] hover:bg-[#e0d4ed] text-[#734e97] font-bold py-3 px-6 rounded-full text-sm transition-colors flex items-center justify-center gap-2 -mt-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                Profili Düzenle
+            </button>
+</section>
+<section class="flex bg-white/60 backdrop-blur-sm rounded-xl border border-white/40 divide-x divide-white/40">
+<div class="flex-1 py-4 flex flex-col items-center justify-center gap-1">
+<span class="text-2xl font-bold text-[#140e1b]">12</span>
+<span class="text-xs font-medium text-[#734e97] uppercase tracking-wider">Playlist</span>
+</div>
+<div class="flex-1 py-4 flex flex-col items-center justify-center gap-1">
+<span class="text-2xl font-bold text-[#140e1b]">1.4k</span>
+<span class="text-xs font-medium text-[#734e97] uppercase tracking-wider">Dinleme</span>
+</div>
+</section>
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-lg font-bold text-[#140e1b]">Son Dinlenenler</h3>
+<a class="text-xs font-bold text-[#8c30e8]" href="#">Tümünü Gör</a>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+<div class="min-w-[140px] group relative">
+<div class="aspect-square rounded-xl overflow-hidden mb-2 shadow-md">
+<img alt="Abstract colorful album art" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Abstract colorful shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxqpYmlxcrFZ6B6l_Eb9IGtKgolXja26jUJt1o26qn2YNDOaWTgCNLSw5zigvTV0-oNNUfU-TGXIfNsk3LpFGyielBnMovvojuMkY-zwgIeW_cxUgVlpJOuVBINQojHdgmrxp0QLocfw-5QiyNqskAi2O0Pv5ESBIbe2DhJXKzWQnWKpFKndUfrdwWrYQbejBfTl8h2iLBqSTgcBN21M9Wr_5oV-6bdYgobLtBMJlX8ofJkIAbqiVt3YP2X3AY18dQs4-ac5iweup0"/>
+</div>
+<p class="text-sm font-bold text-[#140e1b] truncate">Gece Mavisi</p>
+<p class="text-xs text-[#734e97] truncate">Madrigal</p>
+</div>
+<div class="min-w-[140px] group relative">
+<div class="aspect-square rounded-xl overflow-hidden mb-2 shadow-md">
+<img alt="Sunset surf album cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Surfer at sunset silhouette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4Mt2R1gRzMTlWLxxE0L4vCRDepqmowAUOwp5aVGrtAVIoLqa3JRzswJ14rRiF7U9dqzownzKLkEAQoyvNpjbqX4UFPQ0CObAx-6F5Sa2aJBFf1TER6gEQPvuFm0NLra-fpJPOFmH6qbAx7gNLzoEWI_vmtjpOgucV9k8lXtP_Kmx0truN7x23p1-FoyC6bu-CHi4jLKcnTTFVjHWG_O_pVon6c-V5QHEwZkAVbNUBvZuJuAGmIIbJh3Bs37QJPfiB9ORobfctea2Y"/>
+</div>
+<p class="text-sm font-bold text-[#140e1b] truncate">Waves</p>
+<p class="text-xs text-[#734e97] truncate">Dean Lewis</p>
+</div>
+<div class="min-w-[140px] group relative">
+<div class="aspect-square rounded-xl overflow-hidden mb-2 shadow-md">
+<img alt="Minimalist geometric album art" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Minimalist geometric pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgEjmxTdQDN9yNAW_fnon2pJwx33mh0uPU2eoMe2aTVySnPa2imXLYxQXP8-NiH44kQGPXg7fGHU11M73U74p3Pios4Rri1fWQ26ku9TdbppC0g8SjxFmizqY3p_Vh72Iw9MsQu_pRsSrnbRgq6Qy41P5qcyXF3yEEVgxxPw8zW0ENovT--zOUI_VmbIYVRW4zyDvUJwIToLsB62TS845Q1F2yzab25SQo3IQ6dJ7bYLPJ4DfrO4lpwVw8pHRKWIL1dAHT7STpEBBs"/>
+</div>
+<p class="text-sm font-bold text-[#140e1b] truncate">Antidepresan</p>
+<p class="text-xs text-[#734e97] truncate">Mabel Matiz</p>
+</div>
+</div>
+</section>
+<div class="pt-4 pb-8 px-4">
+<button class="w-full bg-gradient-to-r from-[#8c30e8] to-[#9d5ce6] text-white font-bold py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200">
+                Çıkış Yap
+            </button>
+</div>
+</main>
+<nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-white/40 backdrop-blur-xl border border-white/40 shadow-lg shadow-blue-200/20 z-50 rounded-full py-2 px-2 flex justify-between items-center">
+<a class="w-12 h-12 flex items-center justify-center rounded-full text-gray-500 hover:bg-white/30 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1, 'wght' 400;">home</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-full text-gray-500 hover:bg-white/30 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1, 'wght' 400;">explore</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-full text-gray-500 hover:bg-white/30 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1, 'wght' 400;">library_music</span>
+</a>
+<a class="flex items-center gap-2 bg-white text-black py-2.5 px-5 rounded-full shadow-sm transition-all" href="#">
+<span class="material-symbols-outlined text-[22px] text-black" style="font-variation-settings: 'FILL' 1, 'wght' 600;">person</span>
+<span class="text-sm font-bold text-black">Profil</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune Welcome</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#87CEEB","secondary": "#C9B8F0","background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "brand-lavender": "#E6E1F9", 
+                        "brand-sky": "#D4EBF9",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>.bg-moodtune-gradient {
+            background: linear-gradient(180deg, #E6E1F9 0%, #D4EBF9 50%, #BFE4F7 100%);
+        }
+        .logo-gradient-fill {
+            fill: url(#logoGradient);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+    </style>
+<style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-slate-100 h-screen w-full overflow-hidden flex flex-col items-center justify-center relative">
+<div class="absolute inset-0 bg-moodtune-gradient z-0"></div>
+<div class="absolute top-[10%] left-[10%] w-[40vh] h-[40vh] bg-white opacity-40 blur-[90px] rounded-full z-0 pointer-events-none"></div>
+<div class="absolute bottom-[20%] right-[10%] w-[50vh] h-[50vh] bg-[#C9B8F0] opacity-10 blur-[120px] rounded-full z-0 pointer-events-none"></div>
+<div class="relative z-10 w-full max-w-md h-full flex flex-col justify-between p-6 @container">
+<div class="flex-none h-12"></div>
+<div class="flex-1 flex flex-col items-center justify-center animate-fade-in-up">
+<div class="mb-8 p-0 relative flex items-center justify-center">
+<div class="w-64 h-64 relative flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-sm" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="logoGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#C9B8F0;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#87CEEB;stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<path d="M190,110 
+                 C210,90 230,80 250,110
+                 C240,140 230,170 230,200
+                 C230,225 240,240 260,240
+                 C285,240 295,220 295,200
+                 C295,160 270,140 270,110
+                 C270,60 310,40 330,40
+                 C360,40 380,70 380,110
+                 C380,180 320,240 320,240
+                 C320,240 380,240 400,280
+                 C420,320 400,360 380,380
+                 C360,400 320,400 300,360
+                 C300,360 320,320 330,280
+                 L330,160
+                 L320,160
+                 C320,160 340,160 340,120
+                 C340,95 330,80 310,90
+                 C290,100 290,140 300,180
+                 C310,220 350,260 340,320
+                 C330,360 300,360 280,340
+                 C270,330 260,300 270,280
+                 C230,280 200,280 170,260
+                 C150,245 150,225 155,215
+                 C160,205 150,195 140,195
+                 C130,195 120,205 130,220
+                 C140,235 150,245 150,260
+                 C150,275 160,285 220,290
+                 C240,292 260,320 280,360
+                 C290,380 310,410 340,410
+                 C380,410 420,380 430,320
+                 C440,260 390,200 390,200
+                 C390,200 420,140 400,90
+                 C380,40 330,10 290,30
+                 C250,50 240,90 240,90
+                 C220,50 180,50 160,90
+                 C140,130 160,160 160,160
+                 C150,170 140,180 140,200
+                 C140,220 160,230 170,240" fill="white" opacity="0.9" style="display:none;"></path>
+<g transform="translate(100, 80) scale(0.8)">
+<path d="M110,40 
+                     C90,60 80,100 85,130 
+                     C88,145 75,155 70,165
+                     C65,175 68,185 75,190
+                     C80,195 78,205 70,210
+                     C60,220 70,240 75,250
+                     C80,260 100,265 140,265
+                     C160,265 175,280 190,300
+                     C200,315 220,320 230,310
+                     C240,300 230,280 220,270" fill="none" stroke="url(#logoGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></path>
+<path d="M120,135 Q145,155 170,135" fill="none" opacity="0.8" stroke="url(#logoGradient)" stroke-linecap="round" stroke-width="8"></path>
+<path d="M220,270
+                     L220,100
+                     C220,40 280,20 300,60
+                     C315,90 280,130 260,150
+                     C240,170 200,200 200,250
+                     C200,290 230,310 260,290
+                     C290,270 280,230 260,220
+                     C240,210 220,240 220,270" fill="none" stroke="url(#logoGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></path>
+</g>
+<g transform="translate(100, 80) scale(0.8)">
+<path d="M110,40 
+                     C90,60 80,100 85,130 
+                     C88,145 75,155 70,165
+                     C65,175 68,185 75,190
+                     C80,195 78,205 70,210
+                     C60,220 70,240 75,250
+                     C80,260 100,265 140,265
+                     C160,265 175,280 190,300
+                     C200,315 220,320 230,310
+                     C240,300 230,280 220,270" fill="none" opacity="0.7" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></path>
+<path d="M120,135 Q145,155 170,135" fill="none" opacity="0.5" stroke="white" stroke-linecap="round" stroke-width="8"></path>
+<path d="M220,270
+                     L220,100
+                     C220,40 280,20 300,60
+                     C315,90 280,130 260,150
+                     C240,170 200,200 200,250
+                     C200,290 230,310 260,290
+                     C290,270 280,230 260,220
+                     C240,210 220,240 220,270" fill="none" opacity="0.7" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"></path>
+</g>
+</svg>
+</div>
+</div>
+<div class="text-center space-y-2 max-w-[85%] mx-auto mt-4">
+<h1 class="text-[#2d3b4b] text-[40px] font-extrabold tracking-tight drop-shadow-sm leading-tight">
+                    MoodTune
+                </h1>
+<h2 class="text-[#4a5568] text-base font-normal tracking-wide opacity-80 leading-relaxed">
+                    İçindeki Sesi Keşfet
+                </h2>
+</div>
+</div>
+<div class="flex-none w-full pb-10 space-y-4">
+<button class="group relative w-full h-14 rounded-full bg-white text-black font-bold text-lg shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-300 overflow-hidden active:scale-95">
+<span class="relative flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[22px]">login</span>
+                    Giriş Yap
+                 </span>
+</button>
+<button class="w-full h-14 rounded-full border-[1.5px] border-white/60 hover:border-white text-[#2d3b4b] font-bold text-lg bg-white/10 hover:bg-white/20 transition-all duration-300 backdrop-blur-[2px] flex items-center justify-center gap-2 active:scale-95">
+<span class="material-symbols-outlined text-[22px]">person_add</span>
+                Kayıt Ol
+            </button>
+<p class="text-center text-[11px] text-[#4a5568]/60 font-medium pt-2">
+                Devam ederek Kullanım Şartlarımızı kabul etmiş olursunuz.
+            </p>
+</div>
+</div>
+</body></html>

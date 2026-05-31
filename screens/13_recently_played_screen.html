@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MoodTune - Recently Played Playlists</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8c2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#191022",
+                        "lavender-light": "#E8E4F3",
+                        "blue-pastel": "#C8DFF0",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased selection:bg-primary/30">
+<div class="relative min-h-screen w-full mx-auto max-w-md bg-gradient-to-br from-[#E8E4F3] to-[#C8DFF0] dark:from-[#2d2438] dark:to-[#1a2332] overflow-hidden flex flex-col">
+<header class="flex items-center justify-between px-6 pt-12 pb-4 sticky top-0 z-10 backdrop-blur-md bg-opacity-30 dark:bg-opacity-20">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-white/40 dark:bg-white/10 text-slate-900 dark:text-white backdrop-blur-sm transition-transform active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Son Çalınanlar</h1>
+<div class="w-10"></div>
+</header>
+<div class="flex gap-3 px-6 pb-6 overflow-x-auto no-scrollbar pt-2">
+<button class="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary px-5 shadow-lg shadow-primary/20 transition-all active:scale-95">
+<span class="text-white text-sm font-semibold">Tümü</span>
+</button>
+<button class="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white/60 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 px-5 backdrop-blur-sm transition-all active:scale-95">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Bugün</span>
+</button>
+<button class="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white/60 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 px-5 backdrop-blur-sm transition-all active:scale-95">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Bu Hafta</span>
+</button>
+<button class="group flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white/60 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 px-5 backdrop-blur-sm transition-all active:scale-95">
+<span class="text-slate-700 dark:text-slate-200 text-sm font-medium">Bu Ay</span>
+</button>
+</div>
+<div class="flex-1 flex flex-col gap-3 px-6 pb-32 overflow-y-auto no-scrollbar">
+<div class="group relative flex items-center justify-between gap-4 rounded-[2rem] bg-white/70 dark:bg-slate-800/60 p-3 shadow-sm hover:shadow-md transition-all backdrop-blur-sm cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-[1.2rem] shadow-sm">
+<img alt="Playlist cover showing a surfer on waves at sunset" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Playlist cover showing a surfer on waves at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMjW7bCl5QiH1q3TgYmYl9BU9LNivETtWFN_WXoq_mcH18NHrvvjp1pbctuGST7qBpIUKbV0sGVqqSnbbfhsu2W412CVD9gkKjF4Cvh3ZhMWIiBKddTMwfYYnKzLNVxnLmHT1tK1FllCGAZfXglblFO4dmszMXjNVRqdTmK-eEX4xwJFDJRD_l8cCrH-tVXi-PmksH-TUll7TSz7jsaVA2-ISyijTDGcqew3sEEybEO7gwcF9M0jvdNi8kAuQySTpTNQfb5GUm61L_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-1 right-1 material-symbols-outlined text-white text-[18px]">playlist_play</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">Enerjik Sabahlar</h3>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2 py-0.5 text-[10px] font-bold text-yellow-700 dark:text-yellow-300">
+                            Enerjik ⚡
+                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-center gap-2 pr-2">
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-700/50 px-2 py-1 rounded-lg">24 Şarkı</span>
+<span class="material-symbols-outlined text-slate-400 text-xl">chevron_right</span>
+</div>
+</div>
+<div class="group relative flex items-center justify-between gap-4 rounded-[2rem] bg-white/70 dark:bg-slate-800/60 p-3 shadow-sm hover:shadow-md transition-all backdrop-blur-sm cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-[1.2rem] shadow-sm">
+<img alt="Playlist cover with abstract foggy forest path" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Playlist cover with abstract foggy forest path" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuv3WnO3gKWpRA-J0ow6CHuXEYRliuLyZ654WDcFUGwJKWQeJ40mesxzC7zuTWTGb-H_fIac4M6Q866qRtMTFIhQM5hdW29jh0r-zou3d3UJTlSo7Tau2IVsSpKTpWI6nwRhk5e3QQ5hPMZ6ZzVhBdyj2paEJxq_5-OQ07qdioHcP3GSzr1bA9NXvdvbS96FaCYpEQNGMlYdewbbz30YEX7p2brc_RRaRrIWMZ5kynJRAOf4jv8emuceqjW4lZlzQjhEbOh-640HiO"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-1 right-1 material-symbols-outlined text-white text-[18px]">playlist_play</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">Sakin Yürüyüşler</h3>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/30 px-2 py-0.5 text-[10px] font-bold text-green-700 dark:text-green-300">
+                            Sakin 🌿
+                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-center gap-2 pr-2">
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-700/50 px-2 py-1 rounded-lg">18 Şarkı</span>
+<span class="material-symbols-outlined text-slate-400 text-xl">chevron_right</span>
+</div>
+</div>
+<div class="group relative flex items-center justify-between gap-4 rounded-[2rem] bg-white/70 dark:bg-slate-800/60 p-3 shadow-sm hover:shadow-md transition-all backdrop-blur-sm cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-[1.2rem] shadow-sm">
+<img alt="Colorful abstract gradient playlist art" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Colorful abstract gradient playlist art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8k5kUgqgPSFAECb_qLKWfTN-cYi38SBqBD4_GaNn4GQsbXphdRVb5BsvnWoiLE9Qy2Do__JN3sFaUxNCqMppy8H5WWTzgo8B-ikKXuO4Y10FwWgcG37nb1S4busrKMCBBgqoNnssWyctOuW6xWtinWf2UYuoyN2GmkOcfb_tebQuN5u2-DypysZkkD-sI61Vb6HecaLA6vQSxHzDsgj3wREbjoxtxE0JQyCf8Fb5CWenAqv97LUzIGB-GfVoiqiKVndpwEm-0KDhP"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-1 right-1 material-symbols-outlined text-white text-[18px]">playlist_play</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">Yaz Neşesi</h3>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-pink-100 dark:bg-pink-900/30 px-2 py-0.5 text-[10px] font-bold text-pink-700 dark:text-pink-300">
+                            Mutlu 😊
+                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-center gap-2 pr-2">
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-700/50 px-2 py-1 rounded-lg">42 Şarkı</span>
+<span class="material-symbols-outlined text-slate-400 text-xl">chevron_right</span>
+</div>
+</div>
+<div class="group relative flex items-center justify-between gap-4 rounded-[2rem] bg-white/70 dark:bg-slate-800/60 p-3 shadow-sm hover:shadow-md transition-all backdrop-blur-sm cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-[1.2rem] shadow-sm">
+<img alt="Dark moody blue abstract art" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Dark moody blue abstract art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR9foCMwWwEzVRiHjLdqM3tsT7WsTyUxGWYSo-SjJ0roLLBBaXFof5DMCXTShu7puXHabwPTDz85tp8g5OtH9RLWb58CosQN9fHAXNkq8_C-BazELM1WvceDVkV_bEtQ_C6LCleHH8V3Y4OIq6eJ_E2qX2iJW-0GmsuEp8iiwphGUKGexilPMliRC6zfR-iDf9708ZCYCOXbIFdExqTYeHICWc-7Pa1pW2m_36RjvmaIcyEHMkWkTuYWg1ijKYBMg6H5ITmnM9XnIi"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-1 right-1 material-symbols-outlined text-white text-[18px]">playlist_play</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">Yağmurlu Günler</h3>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/30 px-2 py-0.5 text-[10px] font-bold text-purple-700 dark:text-purple-300">
+                            Hüzünlü 🌧️
+                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-center gap-2 pr-2">
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-700/50 px-2 py-1 rounded-lg">15 Şarkı</span>
+<span class="material-symbols-outlined text-slate-400 text-xl">chevron_right</span>
+</div>
+</div>
+<div class="group relative flex items-center justify-between gap-4 rounded-[2rem] bg-white/70 dark:bg-slate-800/60 p-3 shadow-sm hover:shadow-md transition-all backdrop-blur-sm cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="relative h-20 w-20 shrink-0 overflow-hidden rounded-[1.2rem] shadow-sm">
+<img alt="Coffee cup on a table with warm light" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Coffee cup on a table with warm light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxZmazfueUqM2DE_oQoQf5ozc8qzCpmSoWq7VBYNxSiVksMd6tj81xgCvHF2_1Yd9NMnh8FZ7xQsaWJt7rQzNC8K2jc3NxCOKqPGaingcsQ2Or-6CkH__AQgpTdmQmE_AtCc4BSysztAQeAmzTRbHXskiXBOxkE5R2hys7ppHHOlrFGX7J6UH3R9VnrSaMjQVOxNAgf0c18hg5zIKBhgMiz2EIBhZJkTQMcZrUkDfOw-WJ4c7VWYE-9NNRPZ96FYWatb4KjNRBmqo-"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<span class="absolute bottom-1 right-1 material-symbols-outlined text-white text-[18px]">playlist_play</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">Derin Odaklanma</h3>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 text-[10px] font-bold text-blue-700 dark:text-blue-300">
+                            Odak 🧠
+                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end justify-center gap-2 pr-2">
+<span class="text-xs font-semibold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-700/50 px-2 py-1 rounded-lg">30 Şarkı</span>
+<span class="material-symbols-outlined text-slate-400 text-xl">chevron_right</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 left-0 right-0 px-4 flex flex-col items-center gap-4 z-20 pointer-events-none">
+<nav class="w-full max-w-[340px] pointer-events-auto">
+<div class="flex items-center justify-between bg-white/70 dark:bg-slate-800/80 backdrop-blur-xl px-2 py-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+<a class="flex items-center gap-2 bg-white dark:bg-white/10 rounded-full px-5 py-3 shadow-sm transition-all group" href="#">
+<span class="material-symbols-outlined text-black dark:text-white text-[24px] font-bold" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-sm font-bold text-black dark:text-white">Anasayfa</span>
+</a>
+<a class="flex items-center justify-center h-11 w-11 rounded-full text-slate-400 hover:bg-white/20 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">explore</span>
+</a>
+<a class="flex items-center justify-center h-11 w-11 rounded-full text-slate-400 hover:bg-white/20 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">library_music</span>
+</a>
+<a class="flex items-center justify-center h-11 w-11 rounded-full text-slate-400 hover:bg-white/20 transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+</a>
+</div>
+</nav>
+</div>
+</div>
+</body></html>
