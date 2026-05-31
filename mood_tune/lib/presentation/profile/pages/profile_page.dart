@@ -1,11 +1,13 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/state/player_state.dart';
 import '../../core/atoms/primary_button.dart';
-import '../../core/organisms/custom_bottom_nav_bar.dart';
+import '../../../domain/music/entities/music_track.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -13,7 +15,6 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    final displayName = user?.displayName ?? 'Kullanıcı';
     final photoUrl = user?.photoURL;
 
     return Scaffold(
@@ -25,13 +26,11 @@ class ProfilePage extends StatelessWidget {
         centerTitle: false,
         automaticallyImplyLeading: false,
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(left: 24, right: 24, bottom: 100),
-            child: Column(
-              children: [
-                const SizedBox(height: 16),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 100),
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
 
                 // Profil Kartı
                 Container(
@@ -69,17 +68,35 @@ class ProfilePage extends StatelessWidget {
                           ),
                           child: ClipOval(
                             child: photoUrl != null
-                                ? Image.network(
-                                    photoUrl,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (ctx, e, s) => _defaultAvatar(),
-                                  )
+                                ? (photoUrl.startsWith('http')
+                                    ? Image.network(
+                                        photoUrl,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (ctx, e, s) => _defaultAvatar(),
+                                      )
+                                    : Image.file(
+                                        File(photoUrl),
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (ctx, e, s) => _defaultAvatar(),
+                                      ))
                                 : _defaultAvatar(),
                           ),
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Text(displayName, style: AppTextStyles.titleL),
+                      StreamBuilder<DocumentSnapshot>(
+                        stream: user != null
+                            ? FirebaseFirestore.instance.collection('users').doc(user.uid).snapshots()
+                            : const Stream.empty(),
+                        builder: (context, snapshot) {
+                          final data = snapshot.data?.data() as Map<String, dynamic>?;
+                          String name = data?['displayName'] as String? ?? user?.displayName ?? '';
+                          if (name.trim().isEmpty) {
+                            name = 'Kullanıcı';
+                          }
+                          return Text(name, style: AppTextStyles.titleL);
+                        },
+                      ),
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () => context.push('/edit-profile'),
@@ -119,7 +136,18 @@ class ProfilePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _StatItem(value: '12', label: 'PLAYLİST'),
+                      ValueListenableBuilder<List<Map<String, dynamic>>>(
+                        valueListenable: PlayerState.favoritePlaylists,
+                        builder: (context, favs, _) {
+                          return ValueListenableBuilder<List<Map<String, dynamic>>>(
+                            valueListenable: PlayerState.myPlaylists,
+                            builder: (context, mine, _) {
+                              final total = favs.length + mine.length;
+                              return _StatItem(value: total.toString(), label: 'PLAYLİST');
+                            },
+                          );
+                        },
+                      ),
                       Container(width: 1, height: 40, color: AppColors.divider),
                       _StatItem(value: '1.4k', label: 'DİNLEME'),
                     ],
@@ -145,34 +173,56 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 100,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 100,
-                        margin: const EdgeInsets.only(right: 16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                'https://picsum.photos/seed/recent$index/200'),
-                            fit: BoxFit.cover,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.shadow.withValues(alpha: 0.1),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                ValueListenableBuilder<List<MusicTrack>>(
+                  valueListenable: PlayerState.recentTracks,
+                  builder: (context, tracks, child) {
+                    if (tracks.isEmpty) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Text(
+                          'Henüz son dinlediğiniz bir şarkı yok.',
+                          style: TextStyle(color: AppColors.textHint),
                         ),
                       );
-                    },
-                  ),
+                    }
+                    return SizedBox(
+                      height: 100,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: tracks.length,
+                        itemBuilder: (context, index) {
+                          final track = tracks[index];
+                          return GestureDetector(
+                            onTap: () {
+                              PlayerState.playTrack(
+                                track,
+                                [track], // Sadece şarkıyı ekle
+                                0,
+                              );
+                            },
+                            child: Container(
+                              width: 100,
+                              margin: const EdgeInsets.only(right: 16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                image: DecorationImage(
+                                  image: NetworkImage(track.thumbnailUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.shadow.withValues(alpha: 0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 32),
 
@@ -300,89 +350,11 @@ class ProfilePage extends StatelessWidget {
           ],
         ),
       ),
-
-          // Bottom Nav Bar
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: CustomBottomNavBar(
-              currentIndex: 3,
-              onTap: (index) {
-                if (index == 0) context.go('/home');
-                if (index == 1) context.push('/choose-mood');
-                if (index == 2) context.push('/my-playlists');
-              },
-            ),
-          ),
-        ],
-      ),
     );
   }
 
   void _showAllRecentlyPlayed(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => Container(
-        height: MediaQuery.of(context).size.height * 0.75,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Son Dinlenenler',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xFF1A2A3A),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.close, color: AppColors.textHint),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                itemCount: 20,
-                itemBuilder: (ctx, i) {
-                  return ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://picsum.photos/seed/recent$i/200',
-                        width: 48,
-                        height: 48,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    title: Text('Şarkı ${i + 1}',
-                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                    subtitle: Text('Sanatçı ${i + 1}',
-                        style: const TextStyle(fontSize: 12, color: AppColors.textHint)),
-                    trailing: const Icon(Icons.play_circle_outline,
-                        color: AppColors.primary),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    context.push('/recently-played');
   }
 
   void _showAllFavorites(BuildContext context) {

@@ -6,10 +6,17 @@ import '../../core/molecules/playlist_list_item.dart';
 import '../../core/organisms/custom_bottom_nav_bar.dart';
 import '../../core/molecules/mini_player.dart';
 import '../../core/atoms/app_text_field.dart';
+import '../../core/atoms/glass_container.dart';
+import '../../core/state/player_state.dart';
 
-class ChoosePlaylistPage extends StatelessWidget {
+class ChoosePlaylistPage extends StatefulWidget {
   const ChoosePlaylistPage({super.key});
 
+  @override
+  State<ChoosePlaylistPage> createState() => _ChoosePlaylistPageState();
+}
+
+class _ChoosePlaylistPageState extends State<ChoosePlaylistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +69,9 @@ class ChoosePlaylistPage extends StatelessWidget {
                       moodName: 'odak',
                       subtitle: 'Küratör: MoodTune • ⏱ 45 dk',
                       showPlayIcon: true,
-                      onTap: () => context.push('/play-music'),
+                      onTap: () {
+                        // Dummy click
+                      },
                     );
                   },
                 ),
@@ -87,7 +96,9 @@ class ChoosePlaylistPage extends StatelessWidget {
                   onNext: () {},
                   onPrevious: () {},
                   onFavorite: () {},
-                  onTap: () => context.push('/play-music'),
+                  onTap: () {
+                    PlayerState.isFullPlayerVisible.value = true;
+                  },
                 ),
                 CustomBottomNavBar(
                   currentIndex: 2, // Playlist aktif

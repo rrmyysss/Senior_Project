@@ -4,7 +4,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/atoms/app_text_field.dart';
 import '../../core/atoms/mood_chip.dart';
-import '../../core/organisms/custom_bottom_nav_bar.dart';
 import '../../core/atoms/gradient_scaffold.dart';
 
 class ChooseMoodPage extends StatefulWidget {
@@ -81,10 +80,10 @@ class _ChooseMoodPageState extends State<ChooseMoodPage> {
     setState(() {
       _selectedMood = mood;
     });
-    // Kısa bir bekleme sonrası yönlendirme
+    // Kısa bir bekleme sonrası yönlendirme — scan-result YouTube'dan şarkıları çeker
     Future.delayed(const Duration(milliseconds: 300), () {
       if (mounted) {
-        context.push('/choose-playlist');
+        context.push('/scan-result', extra: mood);
       }
     });
   }
@@ -92,7 +91,6 @@ class _ChooseMoodPageState extends State<ChooseMoodPage> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      extendBody: true,
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
@@ -107,14 +105,12 @@ class _ChooseMoodPageState extends State<ChooseMoodPage> {
                 style: AppTextStyles.bodyM.copyWith(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 32),
-              
               AppTextField(
                 hintText: 'Ruh hali ara...',
                 prefixIcon: const Icon(Icons.search, color: AppColors.textHint),
                 onChanged: _filterMoods,
               ),
               const SizedBox(height: 32),
-              
               Wrap(
                 spacing: 12,
                 runSpacing: 16,
@@ -131,14 +127,6 @@ class _ChooseMoodPageState extends State<ChooseMoodPage> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: 1, // Keşfet Aktif
-        onTap: (index) {
-          if (index == 0) context.go('/home');
-          if (index == 2) context.pushReplacement('/my-playlists');
-          if (index == 3) context.pushReplacement('/profile');
-        },
       ),
     );
   }

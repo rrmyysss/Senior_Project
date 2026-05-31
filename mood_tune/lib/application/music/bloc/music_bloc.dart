@@ -22,12 +22,19 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
             ),
           );
         },
+        tracksRequestedByMoodName: (e) async {
+          emit(const MusicState.loading());
+          final failureOrTracks =
+              await _musicRepository.getTracksByMoodName(e.moodName);
+          emit(
+            failureOrTracks.fold(
+              (f) => MusicState.failure(f),
+              (tracks) => MusicState.tracksLoaded(tracks),
+            ),
+          );
+        },
         youtubeSearchRequested: (e) async {
           emit(const MusicState.loading());
-          // e.query is typically a string, but the interface takes MoodTag
-          // If e.query is a string, then the interface might be wrong, or event is wrong.
-          // Let's assume the interface is correct: it takes a MoodTag (e.g. from the event).
-          // We need to check what `youtubeSearchRequested` defines. Wait, looking at the code...
           final failureOrResults = await _musicRepository.searchYouTube(e.query);
           emit(
             failureOrResults.fold(
@@ -35,7 +42,37 @@ class MusicBloc extends Bloc<MusicEvent, MusicState> {
               (results) => MusicState.searchResultsLoaded(results),
             ),
           );
-        }
+        },
+        recentlyPlayedRequested: (e) async {
+          emit(const MusicState.loading());
+          final failureOrTracks = await _musicRepository.getRecentlyPlayedTracks();
+          emit(
+            failureOrTracks.fold(
+              (f) => MusicState.failure(f),
+              (tracks) => MusicState.recentlyPlayedLoaded(tracks),
+            ),
+          );
+        },
+        trackPlayed: (e) async {
+          // Track played event'inde state'i loading'e çekmeye gerek yok,
+          // sadece arkaplanda repository üzerinden cache'e ekleme yapalım.
+          await _musicRepository.addTrackToRecentlyPlayed(e.track);
+        },
+        recentlyPlayedCleared: (e) async {
+          emit(const MusicState.loading());
+          await _musicRepository.clearRecentlyPlayed();
+          emit(const MusicState.recentlyPlayedLoaded([]));
+        },
+        playlistRequested: (e) async {
+          emit(const MusicState.loading());
+          final failureOrTracks = await _musicRepository.getPlaylistTracks(e.playlistId);
+          emit(
+            failureOrTracks.fold(
+              (f) => MusicState.failure(f),
+              (tracks) => MusicState.playlistLoaded(tracks),
+            ),
+          );
+        },
       );
     });
   }

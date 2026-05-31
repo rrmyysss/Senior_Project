@@ -55,12 +55,17 @@ extension MusicEventPatterns on MusicEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _TracksRequestedByMood value)?  tracksRequestedByMood,TResult Function( _YoutubeSearchRequested value)?  youtubeSearchRequested,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _TracksRequestedByMood value)?  tracksRequestedByMood,TResult Function( _TracksRequestedByMoodName value)?  tracksRequestedByMoodName,TResult Function( _YoutubeSearchRequested value)?  youtubeSearchRequested,TResult Function( _RecentlyPlayedRequested value)?  recentlyPlayedRequested,TResult Function( _RecentlyPlayedCleared value)?  recentlyPlayedCleared,TResult Function( _PlaylistRequested value)?  playlistRequested,TResult Function( _TrackPlayed value)?  trackPlayed,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _TracksRequestedByMood() when tracksRequestedByMood != null:
-return tracksRequestedByMood(_that);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
-return youtubeSearchRequested(_that);case _:
+return tracksRequestedByMood(_that);case _TracksRequestedByMoodName() when tracksRequestedByMoodName != null:
+return tracksRequestedByMoodName(_that);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
+return youtubeSearchRequested(_that);case _RecentlyPlayedRequested() when recentlyPlayedRequested != null:
+return recentlyPlayedRequested(_that);case _RecentlyPlayedCleared() when recentlyPlayedCleared != null:
+return recentlyPlayedCleared(_that);case _PlaylistRequested() when playlistRequested != null:
+return playlistRequested(_that);case _TrackPlayed() when trackPlayed != null:
+return trackPlayed(_that);case _:
   return orElse();
 
 }
@@ -78,12 +83,17 @@ return youtubeSearchRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _TracksRequestedByMood value)  tracksRequestedByMood,required TResult Function( _YoutubeSearchRequested value)  youtubeSearchRequested,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _TracksRequestedByMood value)  tracksRequestedByMood,required TResult Function( _TracksRequestedByMoodName value)  tracksRequestedByMoodName,required TResult Function( _YoutubeSearchRequested value)  youtubeSearchRequested,required TResult Function( _RecentlyPlayedRequested value)  recentlyPlayedRequested,required TResult Function( _RecentlyPlayedCleared value)  recentlyPlayedCleared,required TResult Function( _PlaylistRequested value)  playlistRequested,required TResult Function( _TrackPlayed value)  trackPlayed,}){
 final _that = this;
 switch (_that) {
 case _TracksRequestedByMood():
-return tracksRequestedByMood(_that);case _YoutubeSearchRequested():
-return youtubeSearchRequested(_that);case _:
+return tracksRequestedByMood(_that);case _TracksRequestedByMoodName():
+return tracksRequestedByMoodName(_that);case _YoutubeSearchRequested():
+return youtubeSearchRequested(_that);case _RecentlyPlayedRequested():
+return recentlyPlayedRequested(_that);case _RecentlyPlayedCleared():
+return recentlyPlayedCleared(_that);case _PlaylistRequested():
+return playlistRequested(_that);case _TrackPlayed():
+return trackPlayed(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -100,12 +110,17 @@ return youtubeSearchRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _TracksRequestedByMood value)?  tracksRequestedByMood,TResult? Function( _YoutubeSearchRequested value)?  youtubeSearchRequested,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _TracksRequestedByMood value)?  tracksRequestedByMood,TResult? Function( _TracksRequestedByMoodName value)?  tracksRequestedByMoodName,TResult? Function( _YoutubeSearchRequested value)?  youtubeSearchRequested,TResult? Function( _RecentlyPlayedRequested value)?  recentlyPlayedRequested,TResult? Function( _RecentlyPlayedCleared value)?  recentlyPlayedCleared,TResult? Function( _PlaylistRequested value)?  playlistRequested,TResult? Function( _TrackPlayed value)?  trackPlayed,}){
 final _that = this;
 switch (_that) {
 case _TracksRequestedByMood() when tracksRequestedByMood != null:
-return tracksRequestedByMood(_that);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
-return youtubeSearchRequested(_that);case _:
+return tracksRequestedByMood(_that);case _TracksRequestedByMoodName() when tracksRequestedByMoodName != null:
+return tracksRequestedByMoodName(_that);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
+return youtubeSearchRequested(_that);case _RecentlyPlayedRequested() when recentlyPlayedRequested != null:
+return recentlyPlayedRequested(_that);case _RecentlyPlayedCleared() when recentlyPlayedCleared != null:
+return recentlyPlayedCleared(_that);case _PlaylistRequested() when playlistRequested != null:
+return playlistRequested(_that);case _TrackPlayed() when trackPlayed != null:
+return trackPlayed(_that);case _:
   return null;
 
 }
@@ -122,11 +137,16 @@ return youtubeSearchRequested(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( MoodTag mood)?  tracksRequestedByMood,TResult Function( String query)?  youtubeSearchRequested,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( MoodTag mood)?  tracksRequestedByMood,TResult Function( String moodName)?  tracksRequestedByMoodName,TResult Function( String query)?  youtubeSearchRequested,TResult Function()?  recentlyPlayedRequested,TResult Function()?  recentlyPlayedCleared,TResult Function( String playlistId)?  playlistRequested,TResult Function( MusicTrack track)?  trackPlayed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TracksRequestedByMood() when tracksRequestedByMood != null:
-return tracksRequestedByMood(_that.mood);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
-return youtubeSearchRequested(_that.query);case _:
+return tracksRequestedByMood(_that.mood);case _TracksRequestedByMoodName() when tracksRequestedByMoodName != null:
+return tracksRequestedByMoodName(_that.moodName);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
+return youtubeSearchRequested(_that.query);case _RecentlyPlayedRequested() when recentlyPlayedRequested != null:
+return recentlyPlayedRequested();case _RecentlyPlayedCleared() when recentlyPlayedCleared != null:
+return recentlyPlayedCleared();case _PlaylistRequested() when playlistRequested != null:
+return playlistRequested(_that.playlistId);case _TrackPlayed() when trackPlayed != null:
+return trackPlayed(_that.track);case _:
   return orElse();
 
 }
@@ -144,11 +164,16 @@ return youtubeSearchRequested(_that.query);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( MoodTag mood)  tracksRequestedByMood,required TResult Function( String query)  youtubeSearchRequested,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( MoodTag mood)  tracksRequestedByMood,required TResult Function( String moodName)  tracksRequestedByMoodName,required TResult Function( String query)  youtubeSearchRequested,required TResult Function()  recentlyPlayedRequested,required TResult Function()  recentlyPlayedCleared,required TResult Function( String playlistId)  playlistRequested,required TResult Function( MusicTrack track)  trackPlayed,}) {final _that = this;
 switch (_that) {
 case _TracksRequestedByMood():
-return tracksRequestedByMood(_that.mood);case _YoutubeSearchRequested():
-return youtubeSearchRequested(_that.query);case _:
+return tracksRequestedByMood(_that.mood);case _TracksRequestedByMoodName():
+return tracksRequestedByMoodName(_that.moodName);case _YoutubeSearchRequested():
+return youtubeSearchRequested(_that.query);case _RecentlyPlayedRequested():
+return recentlyPlayedRequested();case _RecentlyPlayedCleared():
+return recentlyPlayedCleared();case _PlaylistRequested():
+return playlistRequested(_that.playlistId);case _TrackPlayed():
+return trackPlayed(_that.track);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -165,11 +190,16 @@ return youtubeSearchRequested(_that.query);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( MoodTag mood)?  tracksRequestedByMood,TResult? Function( String query)?  youtubeSearchRequested,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( MoodTag mood)?  tracksRequestedByMood,TResult? Function( String moodName)?  tracksRequestedByMoodName,TResult? Function( String query)?  youtubeSearchRequested,TResult? Function()?  recentlyPlayedRequested,TResult? Function()?  recentlyPlayedCleared,TResult? Function( String playlistId)?  playlistRequested,TResult? Function( MusicTrack track)?  trackPlayed,}) {final _that = this;
 switch (_that) {
 case _TracksRequestedByMood() when tracksRequestedByMood != null:
-return tracksRequestedByMood(_that.mood);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
-return youtubeSearchRequested(_that.query);case _:
+return tracksRequestedByMood(_that.mood);case _TracksRequestedByMoodName() when tracksRequestedByMoodName != null:
+return tracksRequestedByMoodName(_that.moodName);case _YoutubeSearchRequested() when youtubeSearchRequested != null:
+return youtubeSearchRequested(_that.query);case _RecentlyPlayedRequested() when recentlyPlayedRequested != null:
+return recentlyPlayedRequested();case _RecentlyPlayedCleared() when recentlyPlayedCleared != null:
+return recentlyPlayedCleared();case _PlaylistRequested() when playlistRequested != null:
+return playlistRequested(_that.playlistId);case _TrackPlayed() when trackPlayed != null:
+return trackPlayed(_that.track);case _:
   return null;
 
 }
@@ -246,6 +276,72 @@ as MoodTag,
 /// @nodoc
 
 
+class _TracksRequestedByMoodName implements MusicEvent {
+  const _TracksRequestedByMoodName(this.moodName);
+  
+
+ final  String moodName;
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TracksRequestedByMoodNameCopyWith<_TracksRequestedByMoodName> get copyWith => __$TracksRequestedByMoodNameCopyWithImpl<_TracksRequestedByMoodName>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TracksRequestedByMoodName&&(identical(other.moodName, moodName) || other.moodName == moodName));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,moodName);
+
+@override
+String toString() {
+  return 'MusicEvent.tracksRequestedByMoodName(moodName: $moodName)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TracksRequestedByMoodNameCopyWith<$Res> implements $MusicEventCopyWith<$Res> {
+  factory _$TracksRequestedByMoodNameCopyWith(_TracksRequestedByMoodName value, $Res Function(_TracksRequestedByMoodName) _then) = __$TracksRequestedByMoodNameCopyWithImpl;
+@useResult
+$Res call({
+ String moodName
+});
+
+
+
+
+}
+/// @nodoc
+class __$TracksRequestedByMoodNameCopyWithImpl<$Res>
+    implements _$TracksRequestedByMoodNameCopyWith<$Res> {
+  __$TracksRequestedByMoodNameCopyWithImpl(this._self, this._then);
+
+  final _TracksRequestedByMoodName _self;
+  final $Res Function(_TracksRequestedByMoodName) _then;
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? moodName = null,}) {
+  return _then(_TracksRequestedByMoodName(
+null == moodName ? _self.moodName : moodName // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
 class _YoutubeSearchRequested implements MusicEvent {
   const _YoutubeSearchRequested(this.query);
   
@@ -307,6 +403,211 @@ as String,
 }
 
 
+}
+
+/// @nodoc
+
+
+class _RecentlyPlayedRequested implements MusicEvent {
+  const _RecentlyPlayedRequested();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecentlyPlayedRequested);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'MusicEvent.recentlyPlayedRequested()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _RecentlyPlayedCleared implements MusicEvent {
+  const _RecentlyPlayedCleared();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecentlyPlayedCleared);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'MusicEvent.recentlyPlayedCleared()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _PlaylistRequested implements MusicEvent {
+  const _PlaylistRequested(this.playlistId);
+  
+
+ final  String playlistId;
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PlaylistRequestedCopyWith<_PlaylistRequested> get copyWith => __$PlaylistRequestedCopyWithImpl<_PlaylistRequested>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlaylistRequested&&(identical(other.playlistId, playlistId) || other.playlistId == playlistId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,playlistId);
+
+@override
+String toString() {
+  return 'MusicEvent.playlistRequested(playlistId: $playlistId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PlaylistRequestedCopyWith<$Res> implements $MusicEventCopyWith<$Res> {
+  factory _$PlaylistRequestedCopyWith(_PlaylistRequested value, $Res Function(_PlaylistRequested) _then) = __$PlaylistRequestedCopyWithImpl;
+@useResult
+$Res call({
+ String playlistId
+});
+
+
+
+
+}
+/// @nodoc
+class __$PlaylistRequestedCopyWithImpl<$Res>
+    implements _$PlaylistRequestedCopyWith<$Res> {
+  __$PlaylistRequestedCopyWithImpl(this._self, this._then);
+
+  final _PlaylistRequested _self;
+  final $Res Function(_PlaylistRequested) _then;
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? playlistId = null,}) {
+  return _then(_PlaylistRequested(
+null == playlistId ? _self.playlistId : playlistId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _TrackPlayed implements MusicEvent {
+  const _TrackPlayed(this.track);
+  
+
+ final  MusicTrack track;
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TrackPlayedCopyWith<_TrackPlayed> get copyWith => __$TrackPlayedCopyWithImpl<_TrackPlayed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TrackPlayed&&(identical(other.track, track) || other.track == track));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,track);
+
+@override
+String toString() {
+  return 'MusicEvent.trackPlayed(track: $track)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TrackPlayedCopyWith<$Res> implements $MusicEventCopyWith<$Res> {
+  factory _$TrackPlayedCopyWith(_TrackPlayed value, $Res Function(_TrackPlayed) _then) = __$TrackPlayedCopyWithImpl;
+@useResult
+$Res call({
+ MusicTrack track
+});
+
+
+$MusicTrackCopyWith<$Res> get track;
+
+}
+/// @nodoc
+class __$TrackPlayedCopyWithImpl<$Res>
+    implements _$TrackPlayedCopyWith<$Res> {
+  __$TrackPlayedCopyWithImpl(this._self, this._then);
+
+  final _TrackPlayed _self;
+  final $Res Function(_TrackPlayed) _then;
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? track = null,}) {
+  return _then(_TrackPlayed(
+null == track ? _self.track : track // ignore: cast_nullable_to_non_nullable
+as MusicTrack,
+  ));
+}
+
+/// Create a copy of MusicEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MusicTrackCopyWith<$Res> get track {
+  
+  return $MusicTrackCopyWith<$Res>(_self.track, (value) {
+    return _then(_self.copyWith(track: value));
+  });
+}
 }
 
 // dart format on

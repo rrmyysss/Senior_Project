@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -24,6 +25,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   // Başlangıç değerleri — değişiklik tespiti için
   late String _initialName;
   late String _initialEmail;
+  late String _initialPhone;
 
   File? _newPhoto;
   bool _isPicking = false;
@@ -32,6 +34,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   bool get _hasChanges {
     return _nameController.text.trim() != _initialName ||
         _emailController.text.trim() != _initialEmail ||
+        _phoneController.text.trim() != _initialPhone ||
         _newPhoto != null;
   }
 
@@ -41,12 +44,45 @@ class _EditProfilePageState extends State<EditProfilePage> {
     final user = FirebaseAuth.instance.currentUser;
     _initialName = user?.displayName ?? '';
     _initialEmail = user?.email ?? '';
+    _initialPhone = user?.phoneNumber ?? '';
 
     _nameController = TextEditingController(text: _initialName)
       ..addListener(() => setState(() {}));
     _emailController = TextEditingController(text: _initialEmail)
       ..addListener(() => setState(() {}));
-    _phoneController = TextEditingController(text: user?.phoneNumber ?? '');
+    _phoneController = TextEditingController(text: _initialPhone)
+      ..addListener(() => setState(() {}));
+
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        final doc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        if (doc.exists) {
+          final data = doc.data() as Map<String, dynamic>;
+          final firestoreName = data['displayName'] as String?;
+          final firestorePhone = data['phone'] as String?;
+          
+          if (mounted) {
+            setState(() {
+              if (firestoreName != null && firestoreName.isNotEmpty && _initialName.isEmpty) {
+                _initialName = firestoreName;
+                _nameController.text = firestoreName;
+              }
+              if (firestorePhone != null && firestorePhone.isNotEmpty && _initialPhone.isEmpty) {
+                _initialPhone = firestorePhone;
+                _phoneController.text = firestorePhone;
+              }
+            });
+          }
+        }
+      } catch (e) {
+        debugPrint('Error loading user data from Firestore: $e');
+      }
+    }
   }
 
   @override
@@ -79,18 +115,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) return;
 
-      // 1) Fotoğraf değiştiyse Storage'a yükle
+      // 1) Fotoğraf değiştiyse yerel dosya yolunu kullan (Firebase Storage kapalı olduğu için)
       String? newPhotoUrl;
       if (_newPhoto != null) {
-        final ref = FirebaseStorage.instance
-            .ref()
-            .child('profile_photos/${user.uid}.jpg');
-        await ref.putFile(_newPhoto!);
-        newPhotoUrl = await ref.getDownloadURL();
+        newPhotoUrl = _newPhoto!.path;
       }
 
       // 2) Display name değiştiyse güncelle
       final newName = _nameController.text.trim();
+      final newPhone = _phoneController.text.trim();
+      
       if (newName != _initialName || newPhotoUrl != null) {
         await user.updateProfile(
           displayName: newName.isNotEmpty ? newName : null,
@@ -99,7 +133,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
         await user.reload();
       }
 
-      // 3) E-posta değiştiyse güncelle
+      // 3) Firestore'u güncelle
+      try {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          if (newName.isNotEmpty) 'displayName': newName,
+          if (newPhone.isNotEmpty) 'phone': newPhone,
+          if (newPhotoUrl != null) 'photoUrl': newPhotoUrl,
+        }, SetOptions(merge: true));
+      } catch (e) {
+        debugPrint('Firestore update error: $e');
+      }
+
+      // 4) E-posta değiştiyse güncelle
       final newEmail = _emailController.text.trim();
       if (newEmail != _initialEmail && newEmail.isNotEmpty) {
         await user.verifyBeforeUpdateEmail(newEmail);
@@ -116,6 +161,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       // Başlangıç değerlerini güncelle
       _initialName = newName.isNotEmpty ? newName : _initialName;
       _initialEmail = newEmail.isNotEmpty ? newEmail : _initialEmail;
+      _initialPhone = newPhone.isNotEmpty ? newPhone : _initialPhone;
       setState(() => _newPhoto = null);
 
       if (mounted) {
@@ -198,9 +244,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: _newPhoto != null
                               ? Image.file(_newPhoto!, fit: BoxFit.cover)
                               : photoUrl != null
-                                  ? Image.network(photoUrl,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (ctx, e, s) => _defaultAvatar())
+                                  ? (photoUrl.startsWith('http')
+                                      ? Image.network(photoUrl, fit: BoxFit.cover, errorBuilder: (ctx, e, s) => _defaultAvatar())
+                                      : Image.file(File(photoUrl), fit: BoxFit.cover))
                                   : _defaultAvatar(),
                         ),
                       ),

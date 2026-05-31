@@ -8,9 +8,15 @@ import '../../core/atoms/app_text_field.dart';
 import '../../core/atoms/primary_button.dart';
 import '../../core/atoms/mood_chip.dart';
 import '../../core/atoms/gradient_scaffold.dart';
+import '../../../domain/music/repositories/i_music_repository.dart';
+import '../../../injection.dart';
+import '../../core/state/player_state.dart';
+import '../../../domain/music/entities/youtube_search_result.dart';
 
 class NewPlaylistPage extends StatefulWidget {
-  const NewPlaylistPage({super.key});
+  final Map<String, dynamic>? existingPlaylist;
+
+  const NewPlaylistPage({super.key, this.existingPlaylist});
 
   @override
   State<NewPlaylistPage> createState() => _NewPlaylistPageState();
@@ -22,21 +28,9 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
   bool _isPicking = false;
   final _searchController = TextEditingController();
   bool _showSearch = false;
-  final List<Map<String, String>> _songs = [
-    {'title': 'Blinding Lights', 'artist': 'The Weeknd'},
-    {'title': 'Save Your Tears', 'artist': 'The Weeknd'},
-  ];
-
-  final List<Map<String, String>> _searchResults = [
-    {'title': 'Midnight City', 'artist': 'M83'},
-    {'title': 'Levitating', 'artist': 'Dua Lipa'},
-    {'title': 'As It Was', 'artist': 'Harry Styles'},
-    {'title': 'Watermelon Sugar', 'artist': 'Harry Styles'},
-    {'title': 'Bohemian Rhapsody', 'artist': 'Queen'},
-    {'title': 'Stairway to Heaven', 'artist': 'Led Zeppelin'},
-    {'title': 'Hotel California', 'artist': 'Eagles'},
-    {'title': 'Smells Like Teen Spirit', 'artist': 'Nirvana'},
-  ];
+  bool _isSearching = false;
+  final List<Map<String, String>> _songs = [];
+  List<YouTubeSearchResult> _searchResults = [];
 
   final List<Map<String, String>> _moods = [
     {'text': 'Sakin', 'emoji': '🌙'},
@@ -45,9 +39,47 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
     {'text': 'Mutlu', 'emoji': '😊'},
   ];
 
+  TextEditingController _nameController = TextEditingController();
+  String? _existingPlaylistId;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.existingPlaylist != null) {
+      final pl = widget.existingPlaylist!;
+      _existingPlaylistId = pl['id'];
+      _nameController.text = pl['title'] ?? '';
+      final emoji = pl['emoji'] ?? '⚡';
+      try {
+        final moodEntry = _moods.firstWhere((m) => m['emoji'] == emoji);
+        _selectedMood = moodEntry['text']!;
+      } catch (_) {
+        _selectedMood = _moods[1]['text']!;
+      }
+      
+      final savedSongs = pl['songs'] as List<dynamic>? ?? [];
+      for (var s in savedSongs) {
+        if (s is Map) {
+          _songs.add({
+            'title': s['title']?.toString() ?? '',
+            'artist': s['artist']?.toString() ?? '',
+            'youtubeVideoId': s['youtubeVideoId']?.toString() ?? '',
+            'thumbnailUrl': s['thumbnailUrl']?.toString() ?? '',
+          });
+        }
+      }
+
+      final coverPath = pl['thumbnailUrl'] as String?;
+      if (coverPath != null && coverPath.isNotEmpty) {
+        _coverImage = File(coverPath);
+      }
+    }
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -65,12 +97,28 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
     }
   }
 
-  List<Map<String, String>> get _filteredResults {
-    final q = _searchController.text.toLowerCase();
-    if (q.isEmpty) return _searchResults;
-    return _searchResults
-        .where((s) => s['title']!.toLowerCase().contains(q) || s['artist']!.toLowerCase().contains(q))
-        .toList();
+  Future<void> _performSearch(String query) async {
+    if (query.trim().isEmpty) {
+      setState(() {
+        _searchResults = [];
+        _isSearching = false;
+      });
+      return;
+    }
+
+    setState(() => _isSearching = true);
+    final repo = getIt<IMusicRepository>();
+    final result = await repo.searchYouTube(query);
+    
+    if (mounted) {
+      setState(() {
+        _isSearching = false;
+        result.fold(
+          (l) => _searchResults = [],
+          (r) => _searchResults = r,
+        );
+      });
+    }
   }
 
   void _addSong(Map<String, String> song) {
@@ -91,7 +139,7 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
   Widget build(BuildContext context) {
     return GradientScaffold(
       appBar: AppBar(
-        title: Text('Yeni Playlist', style: AppTextStyles.titleL),
+        title: Text(widget.existingPlaylist != null ? 'Listeyi Düzenle' : 'Yeni Playlist', style: AppTextStyles.titleL),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -156,7 +204,7 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
             ),
             const SizedBox(height: 32),
 
-            const AppTextField(hintText: 'Oynatma Listesi Adı'),
+            AppTextField(hintText: 'Oynatma Listesi Adı', controller: _nameController),
             const SizedBox(height: 16),
             const AppTextField(hintText: 'Açıklama (İsteğe bağlı)'),
             const SizedBox(height: 24),
@@ -227,9 +275,16 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
                 child: TextField(
                   controller: _searchController,
                   autofocus: true,
-                  onChanged: (_) => setState(() {}),
+                  onSubmitted: (val) => _performSearch(val),
+                  onChanged: (val) {
+                    if (val.isEmpty) {
+                      setState(() {
+                        _searchResults = [];
+                      });
+                    }
+                  },
                   decoration: InputDecoration(
-                    hintText: 'Şarkı veya sanatçı ara...',
+                    hintText: 'Şarkı veya sanatçı ara (Enter\'a bas)...',
                     hintStyle: TextStyle(color: AppColors.textHint, fontSize: 14),
                     prefixIcon: const Icon(Icons.search, color: AppColors.textHint),
                     suffixIcon: _searchController.text.isNotEmpty
@@ -263,31 +318,44 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
                     ),
                   ],
                 ),
-                child: ListView(
+                child: _isSearching 
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView(
                   shrinkWrap: true,
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  children: _filteredResults.map((song) {
-                    final alreadyAdded = _songs.any((s) => s['title'] == song['title']);
+                  children: _searchResults.map((song) {
+                    final songTitle = song.title;
+                    final songArtist = song.channelName;
+                    final alreadyAdded = _songs.any((s) => s['title'] == songTitle);
                     return ListTile(
-                      leading: Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(Icons.music_note,
-                            color: AppColors.primary, size: 18),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: song.thumbnailUrl.isNotEmpty 
+                            ? Image.network(song.thumbnailUrl, width: 36, height: 36, fit: BoxFit.cover)
+                            : Container(
+                                width: 36,
+                                height: 36,
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withValues(alpha: 0.1),
+                                ),
+                                child: const Icon(Icons.music_note,
+                                    color: AppColors.primary, size: 18),
+                              ),
                       ),
-                      title: Text(song['title']!,
-                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                      subtitle: Text(song['artist']!,
-                          style: const TextStyle(fontSize: 12, color: AppColors.textHint)),
+                      title: Text(songTitle,
+                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14), maxLines: 1, overflow: TextOverflow.ellipsis),
+                      subtitle: Text(songArtist,
+                          style: const TextStyle(fontSize: 12, color: AppColors.textHint), maxLines: 1, overflow: TextOverflow.ellipsis),
                       trailing: alreadyAdded
                           ? const Icon(Icons.check, color: Colors.green, size: 20)
                           : const Icon(Icons.add_circle_outline,
                               color: AppColors.primary, size: 24),
-                      onTap: alreadyAdded ? null : () => _addSong(song),
+                      onTap: alreadyAdded ? null : () => _addSong({
+                        'title': songTitle,
+                        'artist': songArtist,
+                        'youtubeVideoId': song.videoId,
+                        'thumbnailUrl': song.thumbnailUrl,
+                      }),
                     );
                   }).toList(),
                 ),
@@ -308,8 +376,26 @@ class _NewPlaylistPageState extends State<NewPlaylistPage> {
             const SizedBox(height: 32),
 
             PrimaryButton(
-              text: 'Oluştur',
-              onPressed: () => Navigator.of(context).pop(),
+              text: widget.existingPlaylist != null ? 'Kaydet' : 'Oluştur',
+              onPressed: () {
+                final playlistName = _nameController.text.trim().isNotEmpty ? _nameController.text.trim() : 'Yeni Liste';
+                final newPlaylist = {
+                  'id': _existingPlaylistId ?? DateTime.now().millisecondsSinceEpoch.toString(),
+                  'title': playlistName,
+                  'emoji': _moods.firstWhere((m) => m['text'] == _selectedMood)['emoji'],
+                  'songCount': _songs.length,
+                  'thumbnailUrl': _coverImage?.path ?? '',
+                  'songs': _songs.map((s) => {
+                    'title': s['title'],
+                    'artist': s['artist'],
+                    'youtubeVideoId': s['youtubeVideoId'] ?? '',
+                    'thumbnailUrl': s['thumbnailUrl'] ?? '',
+                  }).toList(),
+                };
+                final repo = getIt<IMusicRepository>();
+                repo.addMyPlaylist(newPlaylist);
+                Navigator.of(context).pop();
+              },
             ),
             const SizedBox(height: 24),
           ],

@@ -1,48 +1,53 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../core/state/player_state.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/atoms/gradient_scaffold.dart';
 import '../../core/organisms/scan_card.dart';
+import '../../../application/music/bloc/music_bloc.dart';
+import '../../../application/music/bloc/music_event.dart';
+import '../../../application/music/bloc/music_state.dart';
+import '../../../domain/mood/value_objects/mood_tag.dart';
+import '../../../domain/music/entities/music_track.dart';
+import '../../../injection.dart';
 
-const _kRecentItems = [
-  {'name': 'Sabah Neşesi', 'tag': 'Mutlu 😊', 'bg': 0xFFF0E6D8, 'em': '🎨'},
-  {'name': 'Akşamüstü Kahvesi', 'tag': 'Sakin ☕', 'bg': 0xFFD8CBB8, 'em': '☕'},
-  {'name': 'Derin Odak', 'tag': 'Üretken 💡', 'bg': 0xFFC8D4C0, 'em': '💡'},
-];
-
-const _kSpecialItems = [
+/// Keşfet kartları — her biri bir mood temasını temsil eder
+const _kMoodCards = [
   {
     'name': 'Doğa Sesleri',
     'mood': 'Rahatlama',
-    'g1': 0xFF3D6B4A,
-    'g2': 0xFF5A9668,
-    'songs': ['Rain on Leaves', 'Forest Wind', 'River Flow', 'Bird Songs'],
-    'artists': ['Nature', 'Nature', 'Nature', 'Nature'],
+    'playlistId': 'search_doğa sesleri kısa',
+    'imageUrl': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=600&auto=format&fit=crop',
+    'g1': 0xFF4A7C59,
+    'g2': 0xFF31523A,
   },
   {
     'name': 'Gece Sürüşü',
     'mood': 'Melankolik',
+    'playlistId': 'search_gece sürüşü kısa şarkılar',
+    'imageUrl': 'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=600&auto=format&fit=crop',
     'g1': 0xFF1E2D4E,
-    'g2': 0xFF3A4F7A,
-    'songs': ['Midnight City', 'Outro', 'Midnight', 'Breathe'],
-    'artists': ['M83', 'M83', 'Coldplay', 'Pink Floyd'],
+    'g2': 0xFF131D33,
   },
   {
     'name': 'Haftasonu',
     'mood': 'Parti',
-    'g1': 0xFFE8D0B8,
-    'g2': 0xFFC4956A,
-    'songs': ['Blinding Lights', 'Levitating', 'As It Was', 'Watermelon Sugar'],
-    'artists': ['The Weeknd', 'Dua Lipa', 'Harry Styles', 'Harry Styles'],
+    'playlistId': 'search_haftasonu enerjik şarkılar',
+    'imageUrl': 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=600&auto=format&fit=crop',
+    'g1': 0xFFC4956A,
+    'g2': 0xFF8A6440,
   },
   {
     'name': 'Yoga Akışı',
     'mood': 'Wellness',
-    'g1': 0xFFC8E0C4,
-    'g2': 0xFF90BC88,
-    'songs': ['Breathe', 'Calm', 'Inner Peace', 'Balance'],
-    'artists': ['Meditation', 'Relax', 'Zen', 'Harmony'],
+    'playlistId': 'search_yoga meditasyon dinlendirici müzik',
+    'imageUrl': 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop',
+    'g1': 0xFF90BC88,
+    'g2': 0xFF5D8556,
   },
 ];
 
@@ -51,123 +56,327 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userName = FirebaseAuth.instance.currentUser?.displayName?.split(' ').first ?? 'Kullanıcı';
-    return GradientScaffold(
-      body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 120),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ── Header ───────────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.fromLTRB(22, 52, 22, 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Merhaba, $userName 👋',
-                      style: AppTextStyles.displayM.copyWith(fontSize: 24),
-                    ),
-                  ],
-                ),
-              ),
-
-              // ── Scan Card ────────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: ScanCard(
-                  onScanTap: () => context.push('/mood-detection'),
-                ),
-              ),
-              const SizedBox(height: 28),
-
-              // ── Son Çalınanlar ────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Son Çalınanlar',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF1A2A3A),
+    return BlocProvider(
+      create: (_) => getIt<MusicBloc>()
+        ..add(const MusicEvent.recentlyPlayedRequested()),
+      child: GradientScaffold(
+        body: SafeArea(
+          bottom: false,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: 120),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ── Header ───────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(22, 52, 22, 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      StreamBuilder<DocumentSnapshot>(
+                        stream: FirebaseAuth.instance.currentUser != null
+                            ? FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .snapshots()
+                            : const Stream.empty(),
+                        builder: (context, snapshot) {
+                          final data =
+                              snapshot.data?.data() as Map<String, dynamic>?;
+                          String name = data?['displayName']?.toString() ??
+                              FirebaseAuth.instance.currentUser?.displayName ??
+                              '';
+                          if (name.trim().isEmpty || name.contains('@')) {
+                            name = 'Kullanıcı';
+                          } else {
+                            name = name.split(' ').first;
+                          }
+                          return Text(
+                            'Merhaba, $name 👋',
+                            style:
+                                AppTextStyles.displayM.copyWith(fontSize: 24),
+                          );
+                        },
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () => context.push('/last-playlist'),
-                      child: const Text(
-                        'Tümünü Göster',
+                    ],
+                  ),
+                ),
+
+                // ── Scan Card ────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: ScanCard(
+                    onScanTap: () => context.push('/mood-detection'),
+                  ),
+                ),
+                const SizedBox(height: 28),
+
+                // ── Son Çalınanlar (YouTube'dan) ──────────────────
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Son Çalınanlar',
                         style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF8AAAC8),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xFF1A2A3A),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => context.push('/recently-played'),
+                        child: const Text(
+                          'Tümü',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF7C4DFF),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 14),
+
+                // YouTube'dan gelen şarkılar (yatay liste)
+                ValueListenableBuilder<List<MusicTrack>>(
+                  valueListenable: PlayerState.recentTracks,
+                  builder: (context, tracks, child) {
+                    if (tracks.isEmpty) {
+                      return _buildRecentFallback(context);
+                    }
+                    return SizedBox(
+                      height: 176,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        itemCount: tracks.length,
+                        itemBuilder: (context, i) {
+                          final track = tracks[i];
+                          return _RecentTrackCard(
+                            title: track.title,
+                            channelName: track.channelName,
+                            thumbnailUrl: track.thumbnailUrl,
+                            onTap: () {
+                              PlayerState.playTrack(
+                                track,
+                                [track], // Sadece şarkıyı ekle, tüm listeyi değil!
+                                0,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 28),
+
+                // ── Sana Özel (Mood Kartları) ─────────────────────
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 22),
+                  child: Text(
+                    'Sana Özel',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                      color: Color(0xFF1A2A3A),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 1.0,
+                    ),
+                    itemCount: _kMoodCards.length,
+                    itemBuilder: (context, i) {
+                      final item = _kMoodCards[i];
+                      return _MoodCard(
+                        name: item['name'] as String,
+                        mood: item['mood'] as String,
+                        playlistId: item['playlistId'] as String,
+                        imageUrl: item['imageUrl'] as String,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRecentLoading() {
+    return SizedBox(
+      height: 176,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        itemCount: 5,
+        itemBuilder: (context, i) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: SizedBox(
+              width: 130,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 130,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFF7C4DFF)),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 6),
+                  Container(
+                    height: 12,
+                    width: 90,
+                    color: Colors.grey[200],
+                  ),
+                ],
               ),
-              const SizedBox(height: 14),
-              SizedBox(
-                height: 176,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  itemCount: _kRecentItems.length,
-                  itemBuilder: (context, i) {
-                    final item = _kRecentItems[i];
-                    return _RecentCard(
-                      name: item['name'] as String,
-                      tag: item['tag'] as String,
-                      bg: Color(item['bg'] as int),
-                      em: item['em'] as String,
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 28),
+            ),
+          );
+        },
+      ),
+    );
+  }
 
-              // ── Sana Özel ─────────────────────────────────────
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 22),
-                child: Text(
-                  'Sana Özel',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w900,
-                    color: Color(0xFF1A2A3A),
+  Widget _buildRecentFallback(BuildContext context) {
+    return Container(
+      height: 140,
+      margin: const EdgeInsets.symmetric(horizontal: 22),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.6),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white, width: 2),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.music_note, size: 40, color: Color(0xFF8AAAC8)),
+            const SizedBox(height: 8),
+            const Text(
+              'Henüz hiçbir şarkı dinlemedin.',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1A2A3A),
+              ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Aşağıdan bir mod seç ve keşfetmeye başla!',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF8AAAC8),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── YouTube'dan Gelen Şarkı Kartı ─────────────────────────────────────────────
+
+class _RecentTrackCard extends StatelessWidget {
+  final String title;
+  final String channelName;
+  final String thumbnailUrl;
+  final VoidCallback onTap;
+
+  const _RecentTrackCard({
+    required this.title,
+    required this.channelName,
+    required this.thumbnailUrl,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: SizedBox(
+          width: 130,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(18),
+                child: CachedNetworkImage(
+                  imageUrl: thumbnailUrl,
+                  width: 130,
+                  height: 130,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    width: 130,
+                    height: 130,
+                    color: const Color(0xFF7C4DFF).withValues(alpha: 0.08),
+                    child: const Icon(Icons.music_note,
+                        color: Color(0xFF7C4DFF), size: 36),
+                  ),
+                  errorWidget: (context, url, _) => Container(
+                    width: 130,
+                    height: 130,
+                    color: const Color(0xFF7C4DFF).withValues(alpha: 0.08),
+                    child: const Icon(Icons.music_note,
+                        color: Color(0xFF7C4DFF), size: 36),
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 1.0,
-                  ),
-                  itemCount: _kSpecialItems.length,
-                  itemBuilder: (context, i) {
-                    final item = _kSpecialItems[i];
-                    return _SpecialCard(
-                      name: item['name'] as String,
-                      mood: item['mood'] as String,
-                      c1: Color(item['g1'] as int),
-                      c2: Color(item['g2'] as int),
-                      songs: item['songs'] as List<String>,
-                      artists: item['artists'] as List<String>,
-                    );
-                  },
+              const SizedBox(height: 6),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFF1A2A3A),
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                channelName,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF8AAAC8),
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -177,15 +386,15 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _RecentCard extends StatelessWidget {
+// ── Statik Fallback Kart ───────────────────────────────────────────────────────
+
+class _RecentStaticCard extends StatelessWidget {
   final String name;
-  final String tag;
   final Color bg;
   final String em;
 
-  const _RecentCard({
+  const _RecentStaticCard({
     required this.name,
-    required this.tag,
     required this.bg,
     required this.em,
   });
@@ -228,84 +437,54 @@ class _RecentCard extends StatelessWidget {
   }
 }
 
-class _SpecialCard extends StatelessWidget {
+// ── Mood Kartı (Sana Özel) — YouTube'a bağlı ─────────────────────────────────
+
+class _MoodCard extends StatelessWidget {
   final String name;
   final String mood;
-  final Color c1;
-  final Color c2;
-  final List<String> songs;
-  final List<String> artists;
+  final String playlistId;
+  final String imageUrl;
 
-  const _SpecialCard({
+  const _MoodCard({
     required this.name,
     required this.mood,
-    required this.c1,
-    required this.c2,
-    required this.songs,
-    required this.artists,
+    required this.playlistId,
+    required this.imageUrl,
   });
-
-  void _showSongList(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Color(0xFF1A2A3A))),
-            Text(mood, style: const TextStyle(fontSize: 13, color: Color(0xFF8AAAC8), fontWeight: FontWeight.w600)),
-            const SizedBox(height: 20),
-            ...List.generate(songs.length, (i) => _SongRow(title: songs[i], artist: artists[i])),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _showSongList(context),
+      onTap: () => context.push('/youtube-playlist', extra: {
+        'playlistId': playlistId,
+        'title': name,
+        'mood': mood,
+      }),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22),
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [c1, c2],
-            ),
+          decoration: const BoxDecoration(
+            color: Color(0xFF1A2A3A),
           ),
           child: Stack(
             fit: StackFit.expand,
             children: [
+              Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Icon(Icons.image_not_supported, color: Colors.white54),
+                ),
+              ),
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.black.withValues(alpha: 0.55), Colors.transparent],
+                    colors: [
+                      Colors.black.withValues(alpha: 0.8),
+                      Colors.black.withValues(alpha: 0.0)
+                    ],
                     begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    stops: const [0.0, 0.55],
+                    end: Alignment.center,
                   ),
                 ),
               ),
@@ -319,7 +498,7 @@ class _SpecialCard extends StatelessWidget {
                     Text(
                       name,
                       style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
                       ),
@@ -327,7 +506,7 @@ class _SpecialCard extends StatelessWidget {
                     Text(
                       mood,
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: 12,
                         fontWeight: FontWeight.w700,
                         color: Colors.white.withValues(alpha: 0.8),
                       ),
@@ -338,43 +517,6 @@ class _SpecialCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _SongRow extends StatelessWidget {
-  final String title;
-  final String artist;
-  const _SongRow({required this.title, required this.artist});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: const Color(0xFF7C4DFF).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(Icons.music_note, color: Color(0xFF7C4DFF)),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: Color(0xFF1A2A3A))),
-                Text(artist, style: const TextStyle(fontSize: 12, color: Color(0xFF8AAAC8))),
-              ],
-            ),
-          ),
-          const Icon(Icons.play_circle_outline, color: Color(0xFF7C4DFF), size: 28),
-        ],
       ),
     );
   }

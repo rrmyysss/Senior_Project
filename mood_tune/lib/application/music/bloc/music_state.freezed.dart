@@ -55,14 +55,16 @@ extension MusicStatePatterns on MusicState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _TracksLoaded value)?  tracksLoaded,TResult Function( _SearchResultsLoaded value)?  searchResultsLoaded,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _TracksLoaded value)?  tracksLoaded,TResult Function( _SearchResultsLoaded value)?  searchResultsLoaded,TResult Function( _RecentlyPlayedLoaded value)?  recentlyPlayedLoaded,TResult Function( _PlaylistLoaded value)?  playlistLoaded,TResult Function( _Failure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _TracksLoaded() when tracksLoaded != null:
 return tracksLoaded(_that);case _SearchResultsLoaded() when searchResultsLoaded != null:
-return searchResultsLoaded(_that);case _Failure() when failure != null:
+return searchResultsLoaded(_that);case _RecentlyPlayedLoaded() when recentlyPlayedLoaded != null:
+return recentlyPlayedLoaded(_that);case _PlaylistLoaded() when playlistLoaded != null:
+return playlistLoaded(_that);case _Failure() when failure != null:
 return failure(_that);case _:
   return orElse();
 
@@ -81,14 +83,16 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _TracksLoaded value)  tracksLoaded,required TResult Function( _SearchResultsLoaded value)  searchResultsLoaded,required TResult Function( _Failure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _TracksLoaded value)  tracksLoaded,required TResult Function( _SearchResultsLoaded value)  searchResultsLoaded,required TResult Function( _RecentlyPlayedLoaded value)  recentlyPlayedLoaded,required TResult Function( _PlaylistLoaded value)  playlistLoaded,required TResult Function( _Failure value)  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case _Loading():
 return loading(_that);case _TracksLoaded():
 return tracksLoaded(_that);case _SearchResultsLoaded():
-return searchResultsLoaded(_that);case _Failure():
+return searchResultsLoaded(_that);case _RecentlyPlayedLoaded():
+return recentlyPlayedLoaded(_that);case _PlaylistLoaded():
+return playlistLoaded(_that);case _Failure():
 return failure(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -106,14 +110,16 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _TracksLoaded value)?  tracksLoaded,TResult? Function( _SearchResultsLoaded value)?  searchResultsLoaded,TResult? Function( _Failure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _TracksLoaded value)?  tracksLoaded,TResult? Function( _SearchResultsLoaded value)?  searchResultsLoaded,TResult? Function( _RecentlyPlayedLoaded value)?  recentlyPlayedLoaded,TResult? Function( _PlaylistLoaded value)?  playlistLoaded,TResult? Function( _Failure value)?  failure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _TracksLoaded() when tracksLoaded != null:
 return tracksLoaded(_that);case _SearchResultsLoaded() when searchResultsLoaded != null:
-return searchResultsLoaded(_that);case _Failure() when failure != null:
+return searchResultsLoaded(_that);case _RecentlyPlayedLoaded() when recentlyPlayedLoaded != null:
+return recentlyPlayedLoaded(_that);case _PlaylistLoaded() when playlistLoaded != null:
+return playlistLoaded(_that);case _Failure() when failure != null:
 return failure(_that);case _:
   return null;
 
@@ -131,13 +137,15 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<MusicTrack> tracks)?  tracksLoaded,TResult Function( List<YouTubeSearchResult> results)?  searchResultsLoaded,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<MusicTrack> tracks)?  tracksLoaded,TResult Function( List<YouTubeSearchResult> results)?  searchResultsLoaded,TResult Function( List<MusicTrack> tracks)?  recentlyPlayedLoaded,TResult Function( List<MusicTrack> tracks)?  playlistLoaded,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _TracksLoaded() when tracksLoaded != null:
 return tracksLoaded(_that.tracks);case _SearchResultsLoaded() when searchResultsLoaded != null:
-return searchResultsLoaded(_that.results);case _Failure() when failure != null:
+return searchResultsLoaded(_that.results);case _RecentlyPlayedLoaded() when recentlyPlayedLoaded != null:
+return recentlyPlayedLoaded(_that.tracks);case _PlaylistLoaded() when playlistLoaded != null:
+return playlistLoaded(_that.tracks);case _Failure() when failure != null:
 return failure(_that.failure);case _:
   return orElse();
 
@@ -156,13 +164,15 @@ return failure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<MusicTrack> tracks)  tracksLoaded,required TResult Function( List<YouTubeSearchResult> results)  searchResultsLoaded,required TResult Function( Failure failure)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<MusicTrack> tracks)  tracksLoaded,required TResult Function( List<YouTubeSearchResult> results)  searchResultsLoaded,required TResult Function( List<MusicTrack> tracks)  recentlyPlayedLoaded,required TResult Function( List<MusicTrack> tracks)  playlistLoaded,required TResult Function( Failure failure)  failure,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _TracksLoaded():
 return tracksLoaded(_that.tracks);case _SearchResultsLoaded():
-return searchResultsLoaded(_that.results);case _Failure():
+return searchResultsLoaded(_that.results);case _RecentlyPlayedLoaded():
+return recentlyPlayedLoaded(_that.tracks);case _PlaylistLoaded():
+return playlistLoaded(_that.tracks);case _Failure():
 return failure(_that.failure);case _:
   throw StateError('Unexpected subclass');
 
@@ -180,13 +190,15 @@ return failure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<MusicTrack> tracks)?  tracksLoaded,TResult? Function( List<YouTubeSearchResult> results)?  searchResultsLoaded,TResult? Function( Failure failure)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<MusicTrack> tracks)?  tracksLoaded,TResult? Function( List<YouTubeSearchResult> results)?  searchResultsLoaded,TResult? Function( List<MusicTrack> tracks)?  recentlyPlayedLoaded,TResult? Function( List<MusicTrack> tracks)?  playlistLoaded,TResult? Function( Failure failure)?  failure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _TracksLoaded() when tracksLoaded != null:
 return tracksLoaded(_that.tracks);case _SearchResultsLoaded() when searchResultsLoaded != null:
-return searchResultsLoaded(_that.results);case _Failure() when failure != null:
+return searchResultsLoaded(_that.results);case _RecentlyPlayedLoaded() when recentlyPlayedLoaded != null:
+return recentlyPlayedLoaded(_that.tracks);case _PlaylistLoaded() when playlistLoaded != null:
+return playlistLoaded(_that.tracks);case _Failure() when failure != null:
 return failure(_that.failure);case _:
   return null;
 
@@ -397,6 +409,150 @@ class __$SearchResultsLoadedCopyWithImpl<$Res>
   return _then(_SearchResultsLoaded(
 null == results ? _self._results : results // ignore: cast_nullable_to_non_nullable
 as List<YouTubeSearchResult>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _RecentlyPlayedLoaded implements MusicState {
+  const _RecentlyPlayedLoaded(final  List<MusicTrack> tracks): _tracks = tracks;
+  
+
+ final  List<MusicTrack> _tracks;
+ List<MusicTrack> get tracks {
+  if (_tracks is EqualUnmodifiableListView) return _tracks;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tracks);
+}
+
+
+/// Create a copy of MusicState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RecentlyPlayedLoadedCopyWith<_RecentlyPlayedLoaded> get copyWith => __$RecentlyPlayedLoadedCopyWithImpl<_RecentlyPlayedLoaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecentlyPlayedLoaded&&const DeepCollectionEquality().equals(other._tracks, _tracks));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tracks));
+
+@override
+String toString() {
+  return 'MusicState.recentlyPlayedLoaded(tracks: $tracks)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RecentlyPlayedLoadedCopyWith<$Res> implements $MusicStateCopyWith<$Res> {
+  factory _$RecentlyPlayedLoadedCopyWith(_RecentlyPlayedLoaded value, $Res Function(_RecentlyPlayedLoaded) _then) = __$RecentlyPlayedLoadedCopyWithImpl;
+@useResult
+$Res call({
+ List<MusicTrack> tracks
+});
+
+
+
+
+}
+/// @nodoc
+class __$RecentlyPlayedLoadedCopyWithImpl<$Res>
+    implements _$RecentlyPlayedLoadedCopyWith<$Res> {
+  __$RecentlyPlayedLoadedCopyWithImpl(this._self, this._then);
+
+  final _RecentlyPlayedLoaded _self;
+  final $Res Function(_RecentlyPlayedLoaded) _then;
+
+/// Create a copy of MusicState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tracks = null,}) {
+  return _then(_RecentlyPlayedLoaded(
+null == tracks ? _self._tracks : tracks // ignore: cast_nullable_to_non_nullable
+as List<MusicTrack>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _PlaylistLoaded implements MusicState {
+  const _PlaylistLoaded(final  List<MusicTrack> tracks): _tracks = tracks;
+  
+
+ final  List<MusicTrack> _tracks;
+ List<MusicTrack> get tracks {
+  if (_tracks is EqualUnmodifiableListView) return _tracks;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tracks);
+}
+
+
+/// Create a copy of MusicState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PlaylistLoadedCopyWith<_PlaylistLoaded> get copyWith => __$PlaylistLoadedCopyWithImpl<_PlaylistLoaded>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlaylistLoaded&&const DeepCollectionEquality().equals(other._tracks, _tracks));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_tracks));
+
+@override
+String toString() {
+  return 'MusicState.playlistLoaded(tracks: $tracks)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PlaylistLoadedCopyWith<$Res> implements $MusicStateCopyWith<$Res> {
+  factory _$PlaylistLoadedCopyWith(_PlaylistLoaded value, $Res Function(_PlaylistLoaded) _then) = __$PlaylistLoadedCopyWithImpl;
+@useResult
+$Res call({
+ List<MusicTrack> tracks
+});
+
+
+
+
+}
+/// @nodoc
+class __$PlaylistLoadedCopyWithImpl<$Res>
+    implements _$PlaylistLoadedCopyWith<$Res> {
+  __$PlaylistLoadedCopyWithImpl(this._self, this._then);
+
+  final _PlaylistLoaded _self;
+  final $Res Function(_PlaylistLoaded) _then;
+
+/// Create a copy of MusicState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? tracks = null,}) {
+  return _then(_PlaylistLoaded(
+null == tracks ? _self._tracks : tracks // ignore: cast_nullable_to_non_nullable
+as List<MusicTrack>,
   ));
 }
 

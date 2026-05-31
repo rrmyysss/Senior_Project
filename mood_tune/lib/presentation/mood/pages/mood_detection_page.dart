@@ -1,7 +1,10 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/organisms/dashed_oval_painter.dart';
+import '../../../infrastructure/mood/tflite_emotion_detector.dart';
+import '../../core/state/player_state.dart';
 
 class MoodDetectionPage extends StatefulWidget {
   const MoodDetectionPage({super.key});
@@ -13,30 +16,107 @@ class MoodDetectionPage extends StatefulWidget {
 class _MoodDetectionPageState extends State<MoodDetectionPage>
     with SingleTickerProviderStateMixin {
   bool _isScanning = false;
+  bool _cameraReady = false;
+  String? _cameraError;
+
   late AnimationController _pulseController;
+  CameraController? _cameraController;
+  final TfliteEmotionDetector _detector = TfliteEmotionDetector();
 
   @override
   void initState() {
     super.initState();
+    PlayerState.isMiniPlayerVisible.value = false; // Tara sayfasında gizle
+
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     )..repeat(reverse: true);
+
+    _initCamera();
+    _detector.initialize();
+  }
+
+  Future<void> _initCamera() async {
+    try {
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
+        setState(() => _cameraError = 'Kamera bulunamadı');
+        return;
+      }
+
+      // Ön kamerayı tercih et (selfie için)
+      final camera = cameras.firstWhere(
+        (c) => c.lensDirection == CameraLensDirection.front,
+        orElse: () => cameras.first,
+      );
+
+      _cameraController = CameraController(
+        camera,
+        ResolutionPreset.medium,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+
+      await _cameraController!.initialize();
+      if (mounted) {
+        setState(() => _cameraReady = true);
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _cameraError = 'Kamera açılamadı');
+      }
+    }
   }
 
   @override
   void dispose() {
+    PlayerState.isMiniPlayerVisible.value = true; // Sayfadan çıkınca geri göster
     _pulseController.dispose();
+    _cameraController?.dispose();
+    _detector.dispose();
     super.dispose();
   }
 
-  void _startScan() {
+  Future<void> _startScan() async {
+    if (_isScanning) return;
     setState(() => _isScanning = true);
-    Future.delayed(const Duration(milliseconds: 1800), () {
-      if (mounted) {
-        context.pushReplacement('/scan-result');
+
+    try {
+      String detectedEmotion;
+
+      if (_cameraReady && _cameraController != null) {
+        // Kameradan fotoğraf çek
+        final XFile photo = await _cameraController!.takePicture();
+        // Model üzerinde inference çalıştır
+        detectedEmotion = await _detector.detectEmotion(photo.path);
+      } else {
+        // Kamera yoksa (emülatör) sadece demo modu çalıştır
+        detectedEmotion = await _detector.detectEmotion('');
       }
-    });
+
+      if (mounted) {
+        if (detectedEmotion == 'no_face_detected') {
+          setState(() => _isScanning = false);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Yüz algılanamadı, lütfen kameraya bakarak tekrar deneyin.'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        } else {
+          // Duyguyu parametre olarak scan-result sayfasına ilet
+          context.pushReplacement('/scan-result', extra: detectedEmotion);
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isScanning = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Tarama başarısız, tekrar deneyin.')),
+        );
+      }
+    }
   }
 
   @override
@@ -88,28 +168,69 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        // Camera placeholder
-                        Container(
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [Color(0xFF8A9BB8), Color(0xFF6B7D96)],
+                        // --- Kamera önizlemesi veya placeholder ---
+                        if (_cameraReady && _cameraController != null)
+                          Positioned.fill(
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: SizedBox(
+                                width: 100,
+                                // Portre modunda olduğumuz için en/boy oranını ters çevirmeliyiz (uzun kenar height olmalı)
+                                height: 100 * _cameraController!.value.aspectRatio,
+                                child: CameraPreview(_cameraController!),
+                              ),
+                            ),
+                          )
+                        else
+                          Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [Color(0xFF8A9BB8), Color(0xFF6B7D96)],
+                              ),
+                            ),
+                            child: Center(
+                              child: _cameraError != null
+                                  ? Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Text('🧑',
+                                            style: TextStyle(fontSize: 90)),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          _cameraError!,
+                                          style: const TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                        const Text(
+                                          '(Demo mod aktif)',
+                                          style: TextStyle(
+                                            color: Colors.white54,
+                                            fontSize: 11,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : const CircularProgressIndicator(
+                                      color: Colors.white54,
+                                    ),
                             ),
                           ),
-                          child: const Center(
-                            child: Text('🧑', style: TextStyle(fontSize: 90)),
-                          ),
-                        ),
 
-                        // LIVE badge
+                        // LIVE / TARANYOR badge
                         Positioned(
                           top: 14,
                           right: 14,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 14, vertical: 6),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFEF4444),
+                              color: _isScanning
+                                  ? AppColors.primary
+                                  : const Color(0xFFEF4444),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             child: Row(
@@ -118,9 +239,7 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                                 AnimatedBuilder(
                                   animation: _pulseController,
                                   builder: (context, _) => Opacity(
-                                    opacity: _isScanning
-                                        ? _pulseController.value
-                                        : 1.0,
+                                    opacity: _pulseController.value,
                                     child: Container(
                                       width: 8,
                                       height: 8,
@@ -132,9 +251,9 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                                   ),
                                 ),
                                 const SizedBox(width: 6),
-                                const Text(
-                                  'CANLI',
-                                  style: TextStyle(
+                                Text(
+                                  _isScanning ? 'TARANYOR' : 'CANLI',
+                                  style: const TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.w800,
                                     color: Colors.white,
@@ -145,7 +264,7 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                           ),
                         ),
 
-                        // Face oval
+                        // Yüz ovalı çerçeve
                         Center(
                           child: Transform.translate(
                             offset: const Offset(0, -20),
@@ -163,7 +282,34 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                           ),
                         ),
 
-                        // Bottom hint
+                        // Tarama animasyonu (yatay ışık çizgisi)
+                        if (_isScanning)
+                          AnimatedBuilder(
+                            animation: _pulseController,
+                            builder: (context, _) {
+                              final t = _pulseController.value;
+                              return Positioned(
+                                top: 80 + (t * 200),
+                                left: 40,
+                                right: 40,
+                                child: Container(
+                                  height: 2,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.transparent,
+                                        AppColors.primary.withValues(alpha: 0.8),
+                                        Colors.transparent,
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+
+                        // Alt ipucu
                         Positioned(
                           bottom: 20,
                           left: 0,
@@ -176,9 +322,11 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                                 color: Colors.black.withValues(alpha: 0.72),
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              child: const Text(
-                                'Yüzünü çerçeveye hizala',
-                                style: TextStyle(
+                              child: Text(
+                                _isScanning
+                                    ? 'Duygun analiz ediliyor...'
+                                    : 'Yüzünü çerçeveye hizala',
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
@@ -193,9 +341,10 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                 ),
                 const SizedBox(height: 16),
 
-                // Tip
+                // İpucu
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.55),
                     borderRadius: BorderRadius.circular(16),
@@ -217,7 +366,7 @@ class _MoodDetectionPageState extends State<MoodDetectionPage>
                 ),
                 const SizedBox(height: 24),
 
-                // Scan button
+                // Tara butonu
                 _GradientButton(
                   label: _isScanning ? '⏳ Taranıyor...' : 'Tara →',
                   isLoading: _isScanning,
@@ -248,7 +397,8 @@ class _CircleBackButton extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: const Center(
-          child: Text('←', style: TextStyle(fontSize: 20, color: Color(0xFF1A2A3A))),
+          child: Text('←',
+              style: TextStyle(fontSize: 20, color: Color(0xFF1A2A3A))),
         ),
       ),
     );

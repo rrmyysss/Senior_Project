@@ -7,5 +7,6 @@ import '../../mood/value_objects/mood_tag.dart';
 abstract class IYouTubeRepository {
   Future<Either<Failure, List<YouTubeSearchResult>>> searchByMood({required MoodTag moodTag, required String query});
   Future<Either<Failure, Map<String, dynamic>>> getVideoDetails(String videoId);
+  Future<Either<Failure, List<YouTubeSearchResult>>> getPlaylistItems(String playlistId);
   MusicTrack convertToTrack(YouTubeSearchResult result, MoodTag moodTag);
 }

@@ -23,7 +23,10 @@ import 'domain/user/repositories/i_auth_repository.dart' as _i369;
 import 'infrastructure/auth/repositories/auth_repository_impl.dart' as _i725;
 import 'infrastructure/core/injectable_module.dart' as _i1026;
 import 'infrastructure/mood/repositories/mood_repository_impl.dart' as _i823;
-import 'infrastructure/music/repositories/mock_music_repository.dart' as _i385;
+import 'infrastructure/music/repositories/music_repository_impl.dart' as _i786;
+import 'infrastructure/music/repositories/youtube_repository_impl.dart'
+    as _i976;
+import 'infrastructure/music/services/cache_service.dart' as _i781;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -39,19 +42,30 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i974.FirebaseFirestore>(
       () => firebaseInjectableModule.firestore,
     );
-    gh.lazySingleton<_i67.IMusicRepository>(() => _i385.MockMusicRepository());
+    gh.lazySingleton<_i976.YouTubeRepositoryImpl>(
+      () => _i976.YouTubeRepositoryImpl(),
+    );
     gh.lazySingleton<_i369.IAuthRepository>(
       () => _i725.AuthRepositoryImpl(
         gh<_i59.FirebaseAuth>(),
         gh<_i974.FirebaseFirestore>(),
       ),
     );
-    gh.factory<_i619.MusicBloc>(
-      () => _i619.MusicBloc(gh<_i67.IMusicRepository>()),
-    );
     gh.factory<_i81.AuthBloc>(() => _i81.AuthBloc(gh<_i369.IAuthRepository>()));
     gh.lazySingleton<_i126.IMoodRepository>(
       () => _i823.MoodRepositoryImpl(gh<_i974.FirebaseFirestore>()),
+    );
+    gh.lazySingleton<_i781.CacheService>(
+      () => _i781.CacheService(gh<_i974.FirebaseFirestore>()),
+    );
+    gh.lazySingleton<_i67.IMusicRepository>(
+      () => _i786.MusicRepositoryImpl(
+        gh<_i976.YouTubeRepositoryImpl>(),
+        gh<_i781.CacheService>(),
+      ),
+    );
+    gh.factory<_i619.MusicBloc>(
+      () => _i619.MusicBloc(gh<_i67.IMusicRepository>()),
     );
     gh.factory<_i677.MoodBloc>(
       () => _i677.MoodBloc(gh<_i126.IMoodRepository>()),

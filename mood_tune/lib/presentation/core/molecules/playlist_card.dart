@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
@@ -42,14 +43,24 @@ class PlaylistCard extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               // Arka plan resmi
-              Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  color: AppColors.textHint,
-                  child: const Icon(Icons.music_note, color: Colors.white, size: 40),
+              if (imageUrl.isNotEmpty && !imageUrl.startsWith('http'))
+                Image.file(
+                  File(imageUrl),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: AppColors.textHint,
+                    child: const Icon(Icons.music_note, color: Colors.white, size: 40),
+                  ),
+                )
+              else
+                Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: AppColors.textHint,
+                    child: const Icon(Icons.music_note, color: Colors.white, size: 40),
+                  ),
                 ),
-              ),
               // Gradient Overlay
               Container(
                 decoration: BoxDecoration(
@@ -99,9 +110,8 @@ class PlaylistCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        MoodTagBadge.fromMood(moodName),
                         Text(
                           '$songCount Şarkı',
                           style: AppTextStyles.label.copyWith(color: Colors.white70),

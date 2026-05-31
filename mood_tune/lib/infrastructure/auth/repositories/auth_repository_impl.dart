@@ -59,6 +59,10 @@ class AuthRepositoryImpl implements IAuthRepository {
         return const Left(Failure.auth(message: 'Failed to create user.'));
       }
 
+      // Firebase Auth profiline ismi kaydet
+      await userCredential.user?.updateProfile(displayName: displayName);
+      await userCredential.user?.reload();
+
       final newUserModel = UserModel(
         uid: uid,
         email: email,

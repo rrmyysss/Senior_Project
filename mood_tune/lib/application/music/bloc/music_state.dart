@@ -12,5 +12,7 @@ class MusicState with _$MusicState {
   const factory MusicState.loading() = _Loading;
   const factory MusicState.tracksLoaded(List<MusicTrack> tracks) = _TracksLoaded;
   const factory MusicState.searchResultsLoaded(List<YouTubeSearchResult> results) = _SearchResultsLoaded;
+  const factory MusicState.recentlyPlayedLoaded(List<MusicTrack> tracks) = _RecentlyPlayedLoaded;
+  const factory MusicState.playlistLoaded(List<MusicTrack> tracks) = _PlaylistLoaded;
   const factory MusicState.failure(Failure failure) = _Failure;
 }
